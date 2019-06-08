@@ -18,15 +18,36 @@ var generateAds = function () {
     ads.push({
       avatar: authors[i],
       type: offers[getRandomInt(0, offers.length)],
-      x: getRandomInt(10, 1200),
-      y: getRandomInt(130, 630)
+      x: getRandomInt(0 - document.querySelector('.map__pin').offsetWidth / 2, document.querySelector('.map__pins').offsetWidth - document.querySelector('.map__pin').offsetWidth / 2),
+      y: getRandomInt(130 - document.querySelector('.map__pin').offsetHeight, 630 - document.querySelector('.map__pin').offsetHeight)
     });
   }
 
   return ads;
 };
 
+var similarAdsTemplate = document.querySelector('#pin')
+  .content
+  .querySelector('.map__pin');
+
+var renderAds = function (ads) {
+  var adsElement = similarAdsTemplate.cloneNode(true);
+
+  adsElement.style = 'left: ' + ads.x + 'px; top: ' + ads.y + 'px;';
+  adsElement.querySelector('img').src = ads.avatar;
+
+  return adsElement;
+};
+
+var fragment = document.createDocumentFragment();
 
 var ads = generateAds();
 
-console.log(ads);
+for (var j = 0; j < ads.length; j++) {
+  fragment.appendChild(renderAds(ads[j]));
+}
+
+var setupSimilarList = document.querySelector('.map__pins');
+var setupSimilarDialog = document.querySelector('.map__pin');
+
+setupSimilarList.appendChild(fragment);
