@@ -9,6 +9,8 @@ var getRandomInt = function (min, max) {
 };
 
 var generateAds = function () {
+  var PIN_WIDTH = 50;
+  var PIN_HEIGHT = 70;
   var authors = ['img/avatars/user01.png', 'img/avatars/user02.png', 'img/avatars/user03.png', 'img/avatars/user04.png', 'img/avatars/user05.png', 'img/avatars/user06.png', 'img/avatars/user07.png', 'img/avatars/user08.png'];
   var offers = ['palace', 'flat', 'house', 'bungalo'];
 
@@ -18,8 +20,10 @@ var generateAds = function () {
     ads.push({
       avatar: authors[i],
       type: offers[getRandomInt(0, offers.length)],
-      x: getRandomInt(0 - document.querySelector('.map__pin').offsetWidth / 2, document.querySelector('.map__pins').offsetWidth - document.querySelector('.map__pin').offsetWidth / 2),
-      y: getRandomInt(130 - document.querySelector('.map__pin').offsetHeight, 630 - document.querySelector('.map__pin').offsetHeight)
+      location: {
+        x: getRandomInt(0 - PIN_WIDTH / 2, document.querySelector('.map__pins').offsetWidth - PIN_WIDTH / 2),
+        y: getRandomInt(130 - PIN_HEIGHT, 630 - PIN_HEIGHT)
+      }
     });
   }
 
@@ -33,7 +37,7 @@ var similarAdsTemplate = document.querySelector('#pin')
 var renderAds = function (ads) {
   var adsElement = similarAdsTemplate.cloneNode(true);
 
-  adsElement.style = 'left: ' + ads.x + 'px; top: ' + ads.y + 'px;';
+  adsElement.style = 'left: ' + ads.location.x + 'px; top: ' + ads.location.y + 'px;';
   adsElement.querySelector('img').src = ads.avatar;
 
   return adsElement;
