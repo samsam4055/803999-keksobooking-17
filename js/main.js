@@ -55,6 +55,5 @@ for (var j = 0; j < ads.length; j++) {
 }
 
 var setupSimilarList = document.querySelector('.map__pins');
-var setupSimilarDialog = document.querySelector('.map__pin');
 
 setupSimilarList.appendChild(fragment);
