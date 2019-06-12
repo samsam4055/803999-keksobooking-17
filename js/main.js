@@ -13,15 +13,14 @@
   var generateAds = function () {
     var PIN_WIDTH = 50;
     var PIN_HEIGHT = 70;
-    var headlines = ['Заголовок 1', 'Заголовок 2', 'Заголовок 3', 'Заголовок 4', 'Заголовок 5', 'Заголовок 6', 'Заголовок 7', 'Заголовок 8'];
     var offers = ['palace', 'flat', 'house', 'bungalo'];
 
     var ads = [];
 
     for (var i = 0; i < 8; i++) {
       ads.push({
-        avatar: 'img/avatars/user0' + (i + 1) + '.png',
-        headline: headlines[i],
+        avatar: 'img/avatars/user' + String(i + 1).padStart(2, '0') + '.png',
+        headline: 'Заголовок ' + (i + 1),
         type: offers[getRandomInt(0, offers.length)],
         location: {
           x: getRandomInt(0 - PIN_WIDTH / 2, document.querySelector('.map__pins').offsetWidth - PIN_WIDTH / 2),
