@@ -10,15 +10,15 @@
   var adFormSetupFieldset = document.querySelectorAll('.ad-form > fieldset');
 
   for (var i = 0; i < mapFiltersSetupSelect.length; i++) {
-    mapFiltersSetupSelect[i].disabled = 1;;
+    mapFiltersSetupSelect[i].disabled = 1;
   }
 
   for (var i = 0; i < mapFiltersSetupFieldset.length; i++) {
-    mapFiltersSetupFieldset[i].disabled = 1;;
+    mapFiltersSetupFieldset[i].disabled = 1;
   }
 
   for (var i = 0; i < adFormSetupFieldset.length; i++) {
-    adFormSetupFieldset[i].disabled = 1;;
+    adFormSetupFieldset[i].disabled = 1;
   }
 
   mapPinMain.addEventListener('mouseup', function () {
@@ -32,15 +32,15 @@
     mapSetup.classList.remove('map--faded');
    
     for (var i = 0; i < mapFiltersSetupSelect.length; i++) {
-      mapFiltersSetupSelect[i].disabled = 0;;
+      mapFiltersSetupSelect[i].disabled = 0;
     }
 
     for (var i = 0; i < mapFiltersSetupFieldset.length; i++) {
-      mapFiltersSetupFieldset[i].disabled = 0;;
+      mapFiltersSetupFieldset[i].disabled = 0;
     }
 
     for (var i = 0; i < adFormSetupFieldset.length; i++) {
-      adFormSetupFieldset[i].disabled = 0;;
+      adFormSetupFieldset[i].disabled = 0;
     }
 
     var getRandomInt = function (min, max) {
