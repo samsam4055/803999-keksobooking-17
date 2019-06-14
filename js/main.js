@@ -8,6 +8,7 @@
   var mapFiltersSetupFieldset = document.querySelectorAll('.map__filters > fieldset');
   var adFormSetup = document.querySelector('.ad-form');
   var adFormSetupFieldset = document.querySelectorAll('.ad-form > fieldset');
+  var adFormInputAddress = adFormSetup.querySelector('#address');
 
   for (var i = 0; i < mapFiltersSetupSelect.length; i++) {
     mapFiltersSetupSelect[i].disabled = 1;
@@ -24,6 +25,8 @@
   mapPinMain.addEventListener('mouseup', function () {
     activationPage();
   });
+
+  adFormInputAddress.value = mapPinMain.style.left.replace( /[^+-\d.]/g, '') + ', ' + mapPinMain.style.top.replace( /[^+-\d.]/g, '');
 
   var activationPage = function () {
 
