@@ -23,13 +23,9 @@
     adFormSetupFieldset[i].disabled = 1;
   }
 
-  mapPinMain.addEventListener('mouseup', function () {
-    activationPage();
-  });
-
   adFormInputAddress.value = mapPinMain.style.left.replace( /[^+-\d.]/g, '') + ', ' + mapPinMain.style.top.replace( /[^+-\d.]/g, '');
 
-  var activationPage = function () {
+  var onMapPinMainMouseup = function () {
 
     adFormSetup.classList.remove('ad-form--disabled');
 
@@ -98,9 +94,11 @@
     var setupSimilarList = document.querySelector('.map__pins');
 
     setupSimilarList.appendChild(fragment);
-    
+    mapPinMain.removeEventListener('mouseup', onMapPinMainMouseup);
     mapPin.addEventListener('click', onMapPinClick);
   };
+
+  mapPinMain.addEventListener('mouseup', onMapPinMainMouseup);
 
   var onMapPinClick = function () {
     var similarCardsTemplate = document.querySelector('#card')
