@@ -9,6 +9,7 @@
   var adFormSetup = document.querySelector('.ad-form');
   var adFormSetupFieldset = document.querySelectorAll('.ad-form > fieldset');
   var adFormInputAddress = adFormSetup.querySelector('#address');
+  var mapPin = document.querySelector('.map__pin');
 
   for (var i = 0; i < mapFiltersSetupSelect.length; i++) {
     mapFiltersSetupSelect[i].disabled = 1;
@@ -97,6 +98,26 @@
     var setupSimilarList = document.querySelector('.map__pins');
 
     setupSimilarList.appendChild(fragment);
+    
+    mapPin.addEventListener('click', onMapPinClick);
+  };
+
+  var onMapPinClick = function () {
+    var similarCardsTemplate = document.querySelector('#card')
+      .content
+      .querySelector('.map__card');
+
+    var renderCards = function () {
+      var cardsElement = similarCardsTemplate.cloneNode(true);
+
+    return cardsElement;
+    };
+
+    var fragmentCards = document.createDocumentFragment();
+    fragmentCards.appendChild(renderCards ());
+    var setupSimilarListCards = document.querySelector('body');
+
+    setupSimilarListCards.appendChild(fragmentCards);
   };
 
 })();
