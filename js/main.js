@@ -14,8 +14,8 @@
     mapFiltersSetupSelect[h].disabled = 1;
   }
 
-  for (var j = 0; j < mapFiltersSetupFieldset.length; j++) {
-    mapFiltersSetupFieldset[j].disabled = 1;
+  for (var n = 0; n < mapFiltersSetupFieldset.length; n++) {
+    mapFiltersSetupFieldset[n].disabled = 1;
   }
 
   for (var k = 0; k < adFormSetupFieldset.length; k++) {
