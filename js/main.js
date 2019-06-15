@@ -95,27 +95,8 @@
 
     setupSimilarList.appendChild(fragment);
     mapPinMain.removeEventListener('mouseup', onMapPinMainMouseup);
-    mapPin.addEventListener('click', onMapPinClick);
   };
 
   mapPinMain.addEventListener('mouseup', onMapPinMainMouseup);
-
-  var onMapPinClick = function () {
-    var similarCardsTemplate = document.querySelector('#card')
-      .content
-      .querySelector('.map__card');
-
-    var renderCards = function () {
-      var cardsElement = similarCardsTemplate.cloneNode(true);
-
-    return cardsElement;
-    };
-
-    var fragmentCards = document.createDocumentFragment();
-    fragmentCards.appendChild(renderCards ());
-    var setupSimilarListCards = document.querySelector('body');
-
-    setupSimilarListCards.appendChild(fragmentCards);
-  };
 
 })();
