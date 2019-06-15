@@ -9,38 +9,37 @@
   var adFormSetup = document.querySelector('.ad-form');
   var adFormSetupFieldset = document.querySelectorAll('.ad-form > fieldset');
   var adFormInputAddress = adFormSetup.querySelector('#address');
-  var mapPin = document.querySelector('.map__pin');
 
-  for (var i = 0; i < mapFiltersSetupSelect.length; i++) {
-    mapFiltersSetupSelect[i].disabled = 1;
+  for (var h = 0; h < mapFiltersSetupSelect.length; h++) {
+    mapFiltersSetupSelect[h].disabled = 1;
   }
 
-  for (var i = 0; i < mapFiltersSetupFieldset.length; i++) {
-    mapFiltersSetupFieldset[i].disabled = 1;
+  for (var j = 0; j < mapFiltersSetupFieldset.length; j++) {
+    mapFiltersSetupFieldset[j].disabled = 1;
   }
 
-  for (var i = 0; i < adFormSetupFieldset.length; i++) {
-    adFormSetupFieldset[i].disabled = 1;
+  for (var k = 0; k < adFormSetupFieldset.length; k++) {
+    adFormSetupFieldset[k].disabled = 1;
   }
 
-  adFormInputAddress.value = mapPinMain.style.left.replace( /[^+-\d.]/g, '') + ', ' + mapPinMain.style.top.replace( /[^+-\d.]/g, '');
+  adFormInputAddress.value = mapPinMain.style.left.replace(/[^+-\d.]/g, '') + ', ' + mapPinMain.style.top.replace(/[^+-\d.]/g, '');
 
   var onMapPinMainMouseup = function () {
 
     adFormSetup.classList.remove('ad-form--disabled');
 
     mapSetup.classList.remove('map--faded');
-   
-    for (var i = 0; i < mapFiltersSetupSelect.length; i++) {
-      mapFiltersSetupSelect[i].disabled = 0;
+
+    for (var x = 0; x < mapFiltersSetupSelect.length; x++) {
+      mapFiltersSetupSelect[x].disabled = 0;
     }
 
-    for (var i = 0; i < mapFiltersSetupFieldset.length; i++) {
-      mapFiltersSetupFieldset[i].disabled = 0;
+    for (var z = 0; z < mapFiltersSetupFieldset.length; z++) {
+      mapFiltersSetupFieldset[z].disabled = 0;
     }
 
-    for (var i = 0; i < adFormSetupFieldset.length; i++) {
-      adFormSetupFieldset[i].disabled = 0;
+    for (var y = 0; y < adFormSetupFieldset.length; y++) {
+      adFormSetupFieldset[y].disabled = 0;
     }
 
     var getRandomInt = function (min, max) {
