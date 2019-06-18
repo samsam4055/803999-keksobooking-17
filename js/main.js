@@ -10,19 +10,19 @@
   var adFormSetupFieldset = document.querySelectorAll('.ad-form > fieldset');
   var adFormInputAddress = adFormSetup.querySelector('#address');
 
-  for (var h = 0; h < mapFiltersSetupSelect.length; h++) {
-    mapFiltersSetupSelect[h].disabled = 1;
+  for (var i = 0; i < mapFiltersSetupSelect.length; i++) {
+    mapFiltersSetupSelect[i].disabled = 1;
   }
 
-  for (var n = 0; n < mapFiltersSetupFieldset.length; n++) {
-    mapFiltersSetupFieldset[n].disabled = 1;
+  for (i = 0; i < mapFiltersSetupFieldset.length; i++) {
+    mapFiltersSetupFieldset[i].disabled = 1;
   }
 
-  for (var k = 0; k < adFormSetupFieldset.length; k++) {
-    adFormSetupFieldset[k].disabled = 1;
+  for (i = 0; i < adFormSetupFieldset.length; i++) {
+    adFormSetupFieldset[i].disabled = 1;
   }
 
-  adFormInputAddress.value = mapPinMain.style.left.replace(/[^+-\d.]/g, '') + ', ' + mapPinMain.style.top.replace(/[^+-\d.]/g, '');
+  adFormInputAddress.value = parseInt(mapPinMain.style.left, 10) + ', ' + parseInt(mapPinMain.style.top, 10);
 
   var onMapPinMainMouseup = function () {
 
@@ -30,16 +30,16 @@
 
     mapSetup.classList.remove('map--faded');
 
-    for (var x = 0; x < mapFiltersSetupSelect.length; x++) {
-      mapFiltersSetupSelect[x].disabled = 0;
+    for (i = 0; i < mapFiltersSetupSelect.length; i++) {
+      mapFiltersSetupSelect[i].disabled = 0;
     }
 
-    for (var z = 0; z < mapFiltersSetupFieldset.length; z++) {
-      mapFiltersSetupFieldset[z].disabled = 0;
+    for (i = 0; i < mapFiltersSetupFieldset.length; i++) {
+      mapFiltersSetupFieldset[i].disabled = 0;
     }
 
-    for (var y = 0; y < adFormSetupFieldset.length; y++) {
-      adFormSetupFieldset[y].disabled = 0;
+    for (i = 0; i < adFormSetupFieldset.length; i++) {
+      adFormSetupFieldset[i].disabled = 0;
     }
 
     var getRandomInt = function (min, max) {
@@ -53,7 +53,7 @@
 
       var ads = [];
 
-      for (var i = 0; i < 8; i++) {
+      for (i = 0; i < 8; i++) {
         ads.push({
           avatar: 'img/avatars/user' + String(i + 1).padStart(2, '0') + '.png',
           headline: 'Заголовок ' + (i + 1),
@@ -86,8 +86,8 @@
 
     var ads = generateAds();
 
-    for (var j = 0; j < ads.length; j++) {
-      fragment.appendChild(renderAds(ads[j]));
+    for (i = 0; i < ads.length; i++) {
+      fragment.appendChild(renderAds(ads[i]));
     }
 
     var setupSimilarList = document.querySelector('.map__pins');
