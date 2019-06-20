@@ -95,9 +95,9 @@
     setupSimilarList.appendChild(fragment);
     mapPinMain.removeEventListener('mouseup', onMapPinMainMouseup);
 
-    timeInSelect.addEventListener('change', onTimeSelectClick);
-    timeOutSelect.addEventListener('change', onTimeSelectClick);
-    typeSelect.addEventListener('change', onTypeSelectClick);
+    timeInSelect.addEventListener('change', onTimeClickSelectChange);
+    timeOutSelect.addEventListener('change', onTimeClickSelectChange);
+    typeSelect.addEventListener('change', onTypeClickSelectChange);
   };
 
   mapPinMain.addEventListener('mouseup', onMapPinMainMouseup);
@@ -107,19 +107,19 @@
   var timeInSelect = adFormSetup.querySelector('#timein');
   var timeOutSelect = adFormSetup.querySelector('#timeout');
 
-  var PRICES = {
+  var MIN_PRICES = {
     'bungalo': '0',
     'flat': '1000',
     'house': '5000',
     'palace': '10000'
   };
 
-  var onTypeSelectClick = function (evt) {
-    priceInput.placeholder = PRICES[evt.target.value];
-    priceInput.min = PRICES[evt.target.value];
+  var onTypeClickSelectChange = function (evt) {
+    priceInput.placeholder = MIN_PRICES[evt.target.value];
+    priceInput.min = MIN_PRICES[evt.target.value];
   };
 
-  var onTimeSelectClick = function (evt) {
+  var onTimeClickSelectChange = function (evt) {
     if (evt.target.name === 'timein') {
       timeOutSelect.value = evt.target.value;
     } else {
