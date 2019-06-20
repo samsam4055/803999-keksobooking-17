@@ -95,9 +95,9 @@
     setupSimilarList.appendChild(fragment);
     mapPinMain.removeEventListener('mouseup', onMapPinMainMouseup);
 
-    timeInSelect.addEventListener('click', onTimeSelectClick);
-    timeOutSelect.addEventListener('click', onTimeSelectClick);
-    typeSelect.addEventListener('click', onTypeSelectClick);
+    timeInSelect.addEventListener('change', onTimeSelectClick);
+    timeOutSelect.addEventListener('change', onTimeSelectClick);
+    typeSelect.addEventListener('change', onTypeSelectClick);
   };
 
   mapPinMain.addEventListener('mouseup', onMapPinMainMouseup);
