@@ -94,8 +94,38 @@
 
     setupSimilarList.appendChild(fragment);
     mapPinMain.removeEventListener('mouseup', onMapPinMainMouseup);
+
+    timeInSelect.addEventListener('click', onTimeSelectClick);
+    timeOutSelect.addEventListener('click', onTimeSelectClick);
+    typeSelect.addEventListener('click', onTypeSelectClick);
   };
 
   mapPinMain.addEventListener('mouseup', onMapPinMainMouseup);
+  
+  
+  var priceInput = adFormSetup.querySelector('#price');
+  var typeSelect = adFormSetup.querySelector('#type');
+  var timeInSelect = adFormSetup.querySelector('#timein');
+  var timeOutSelect = adFormSetup.querySelector('#timeout');
+
+  var PRICES = {
+    'bungalo': '0',
+    'flat': '1000',
+    'house': '5000',
+    'palace': '10000'
+  };
+
+  var onTypeSelectClick = function (evt) {
+    priceInput.placeholder = PRICES[evt.target.value];
+    priceInput.min = PRICES[evt.target.value];
+  };
+
+  var onTimeSelectClick = function (evt) {
+    if (evt.target.name === 'timein') {
+      timeOutSelect.value = evt.target.value;
+    } else {
+      timeInSelect.value = evt.target.value;
+    }
+  };
 
 })();
