@@ -101,8 +101,7 @@
   };
 
   mapPinMain.addEventListener('mouseup', onMapPinMainMouseup);
-  
-  
+
   var priceInput = adFormSetup.querySelector('#price');
   var typeSelect = adFormSetup.querySelector('#type');
   var timeInSelect = adFormSetup.querySelector('#timein');
