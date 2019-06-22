@@ -142,7 +142,7 @@
       dragged = true;
 
       var shift = {
-        x: startCoords.x - moveEvt.clientX ,
+        x: startCoords.x - moveEvt.clientX,
         y: startCoords.y - moveEvt.clientY
       };
 
