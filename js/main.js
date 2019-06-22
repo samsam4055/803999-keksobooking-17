@@ -142,12 +142,12 @@
       dragged = true;
 
       var shift = {
-        x: startCoords.x - moveEvt.clientX,
+        x: startCoords.x - moveEvt.clientX ,
         y: startCoords.y - moveEvt.clientY
       };
 
       startCoords = {
-        x: Math.min(Math.max(moveEvt.clientX, mapSetup.offsetLeft - (mapPinMain.offsetWidth / 2)), mapSetup.offsetWidth + mapSetup.offsetLeft - (mapPinMain.offsetWidth / 2)),
+        x: Math.min(Math.max(moveEvt.clientX, mapSetup.offsetLeft), mapSetup.offsetWidth + mapSetup.offsetLeft),
         y: Math.min(Math.max(moveEvt.clientY, ACTIVE_MAP_START - window.scrollY - mapPinMain.offsetHeight), ACTIVE_MAP_FINISH - window.scrollY)
       };
 
