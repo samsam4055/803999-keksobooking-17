@@ -30,8 +30,6 @@
 
     adFormSetup.classList.remove('ad-form--disabled');
 
-    mapSetup.classList.remove('map--faded');
-
     for (i = 0; i < mapFiltersSetupSelect.length; i++) {
       mapFiltersSetupSelect[i].disabled = 0;
     }
@@ -127,7 +125,7 @@
   };
 
   var onMapPinMainMouseDown = function (evtDialog) {
-
+    mapSetup.classList.remove('map--faded');
     evtDialog.preventDefault();
 
     var startCoords = {
