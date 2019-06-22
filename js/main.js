@@ -171,13 +171,13 @@
         mapPinMain.addEventListener('click', onClickPreventDefault);
       }
       onMapPinMainMouseup();
-      
+
     };
 
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);
   };
-  
+
   mapPinMain.addEventListener('mousedown', onMapPinMainMouseDown);
 
 })();
