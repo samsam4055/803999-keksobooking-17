@@ -8,7 +8,7 @@
   var updateElementsDisabledProperty = function (selectors, isDisabled) {
     for (var i = 0; i < selectors.length; i++) {
       for (var j = 0; j < selectors[i].length; j++) {
-       selectors[i][j].disabled = isDisabled;
+        selectors[i][j].disabled = isDisabled;
       }
     }
   };
