@@ -5,17 +5,15 @@
   var mapFiltersSetupFieldset = document.querySelectorAll('.map__filters > fieldset');
   var adFormSetupFieldset = document.querySelectorAll('.ad-form > fieldset');
 
-  for (var i = 0; i < mapFiltersSetupSelect.length; i++) {
-    mapFiltersSetupSelect[i].disabled = 1;
-  }
+  var updateElementsDisabledProperty = function (selectors, isDisabled) {
+    for (var i = 0; i < selectors.length; i++) {
+      for (var j = 0; j < selectors[i].length; j++) {
+       selectors[i][j].disabled = isDisabled;
+      }
+    }
+  };
 
-  for (i = 0; i < mapFiltersSetupFieldset.length; i++) {
-    mapFiltersSetupFieldset[i].disabled = 1;
-  }
-
-  for (i = 0; i < adFormSetupFieldset.length; i++) {
-    adFormSetupFieldset[i].disabled = 1;
-  }
+  updateElementsDisabledProperty([mapFiltersSetupSelect, mapFiltersSetupFieldset, adFormSetupFieldset], true);
 
   window.adFormInputAddress.value = parseInt(window.mapPinMain.style.left, 10) + ', ' + parseInt(window.mapPinMain.style.top, 10);
 
@@ -23,17 +21,7 @@
 
     window.adFormSetup.classList.remove('ad-form--disabled');
 
-    for (i = 0; i < mapFiltersSetupSelect.length; i++) {
-      mapFiltersSetupSelect[i].disabled = 0;
-    }
-
-    for (i = 0; i < mapFiltersSetupFieldset.length; i++) {
-      mapFiltersSetupFieldset[i].disabled = 0;
-    }
-
-    for (i = 0; i < adFormSetupFieldset.length; i++) {
-      adFormSetupFieldset[i].disabled = 0;
-    }
+    updateElementsDisabledProperty([mapFiltersSetupSelect, mapFiltersSetupFieldset, adFormSetupFieldset], false);
 
     var similarAdsTemplate = document.querySelector('#pin')
       .content
@@ -51,7 +39,7 @@
 
     var fragment = document.createDocumentFragment();
 
-    for (i = 0; i < window.ads.length; i++) {
+    for (var i = 0; i < window.ads.length; i++) {
       fragment.appendChild(renderAds(window.ads[i]));
     }
 
