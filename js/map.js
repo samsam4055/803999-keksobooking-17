@@ -3,7 +3,7 @@
 (function () {
   window.mapPinMain = document.querySelector('.map__pin--main');
   window.adFormSetup = document.querySelector('.ad-form');
-  window.adFormInputAddress = adFormSetup.querySelector('#address');
+  window.adFormInputAddress = window.adFormSetup.querySelector('#address');
   var mapSetup = document.querySelector('.map');
   var onMapPinMainMouseDown = function (evtDialog) {
     mapSetup.classList.remove('map--faded');
@@ -23,12 +23,12 @@
 
       startCoords = {
         x: Math.min(Math.max(moveEvt.clientX, mapSetup.offsetLeft), mapSetup.offsetWidth + mapSetup.offsetLeft),
-        y: Math.min(Math.max(moveEvt.clientY, ACTIVE_MAP_START - window.scrollY - mapPinMain.offsetHeight), ACTIVE_MAP_FINISH - window.scrollY)
+        y: Math.min(Math.max(moveEvt.clientY, window.ACTIVE_MAP_START - window.scrollY - window.mapPinMain.offsetHeight), window.ACTIVE_MAP_FINISH - window.scrollY)
       };
 
-      mapPinMain.style.top = Math.min(Math.max((mapPinMain.offsetTop - shift.y), ACTIVE_MAP_START - mapPinMain.offsetHeight), ACTIVE_MAP_FINISH) + 'px';
-      mapPinMain.style.left = Math.min(Math.max((mapPinMain.offsetLeft - shift.x), 0 - (mapPinMain.offsetWidth / 2)), mapSetup.offsetWidth - (mapPinMain.offsetWidth / 2)) + 'px';
-      adFormInputAddress.value = Math.round((mapPinMain.offsetWidth / 2) + parseInt(mapPinMain.style.left, 10)) + ', ' + parseInt(mapPinMain.style.top, 10);
+      window.mapPinMain.style.top = Math.min(Math.max((window.mapPinMain.offsetTop - shift.y), window.ACTIVE_MAP_START - window.mapPinMain.offsetHeight), window.ACTIVE_MAP_FINISH) + 'px';
+      window.mapPinMain.style.left = Math.min(Math.max((window.mapPinMain.offsetLeft - shift.x), 0 - (window.mapPinMain.offsetWidth / 2)), mapSetup.offsetWidth - (window.mapPinMain.offsetWidth / 2)) + 'px';
+      window.adFormInputAddress.value = Math.round((window.mapPinMain.offsetWidth / 2) + parseInt(window.mapPinMain.style.left, 10)) + ', ' + parseInt(window.mapPinMain.style.top, 10);
 
     };
 
@@ -38,7 +38,7 @@
       document.removeEventListener('mousemove', onMouseMove);
       document.removeEventListener('mouseup', onMouseUp);
 
-      onMapPinMainMouseup();
+      window.onMapPinMainMouseup();
 
     };
 
@@ -46,5 +46,5 @@
     document.addEventListener('mouseup', onMouseUp);
   };
 
-  mapPinMain.addEventListener('mousedown', onMapPinMainMouseDown);
+  window.mapPinMain.addEventListener('mousedown', onMapPinMainMouseDown);
 })();

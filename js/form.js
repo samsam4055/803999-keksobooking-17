@@ -17,11 +17,11 @@
     adFormSetupFieldset[i].disabled = 1;
   }
 
-  adFormInputAddress.value = parseInt(mapPinMain.style.left, 10) + ', ' + parseInt(mapPinMain.style.top, 10);
+  window.adFormInputAddress.value = parseInt(window.mapPinMain.style.left, 10) + ', ' + parseInt(window.mapPinMain.style.top, 10);
 
   window.onMapPinMainMouseup = function () {
 
-    adFormSetup.classList.remove('ad-form--disabled');
+    window.adFormSetup.classList.remove('ad-form--disabled');
 
     for (i = 0; i < mapFiltersSetupSelect.length; i++) {
       mapFiltersSetupSelect[i].disabled = 0;
@@ -51,8 +51,8 @@
 
     var fragment = document.createDocumentFragment();
 
-    for (i = 0; i < ads.length; i++) {
-      fragment.appendChild(renderAds(ads[i]));
+    for (i = 0; i < window.ads.length; i++) {
+      fragment.appendChild(renderAds(window.ads[i]));
     }
 
     var setupSimilarList = document.querySelector('.map__pins');
@@ -63,10 +63,10 @@
     typeSelect.addEventListener('change', onTypeClickSelectChange);
   };
 
-  var priceInput = adFormSetup.querySelector('#price');
-  var typeSelect = adFormSetup.querySelector('#type');
-  var timeInSelect = adFormSetup.querySelector('#timein');
-  var timeOutSelect = adFormSetup.querySelector('#timeout');
+  var priceInput = window.adFormSetup.querySelector('#price');
+  var typeSelect = window.adFormSetup.querySelector('#type');
+  var timeInSelect = window.adFormSetup.querySelector('#timein');
+  var timeOutSelect = window.adFormSetup.querySelector('#timeout');
 
   var MIN_PRICES = {
     'bungalo': '0',

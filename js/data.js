@@ -21,7 +21,7 @@
         type: offers[getRandomInt(0, offers.length)],
         location: {
           x: getRandomInt(0 - PIN_WIDTH / 2, document.querySelector('.map__pins').offsetWidth - PIN_WIDTH / 2),
-          y: getRandomInt(ACTIVE_MAP_START - PIN_HEIGHT, ACTIVE_MAP_FINISH - PIN_HEIGHT)
+          y: getRandomInt(window.ACTIVE_MAP_START - PIN_HEIGHT, window.ACTIVE_MAP_FINISH - PIN_HEIGHT)
         }
       });
     }
