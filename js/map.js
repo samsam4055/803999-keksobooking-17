@@ -1,10 +1,9 @@
 'use strict';
 
 (function () {
-  window.mapPinMain = document.querySelector('.map__pin--main');
   window.adFormSetup = document.querySelector('.ad-form');
   window.adFormInputAddress = window.adFormSetup.querySelector('#address');
-  var mapSetup = document.querySelector('.map');
+  window.mapSetup = document.querySelector('.map');
   var onMapPinMainMouseDown = function (evtDialog) {
     mapSetup.classList.remove('map--faded');
     evtDialog.preventDefault();

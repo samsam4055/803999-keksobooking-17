@@ -3,32 +3,73 @@
 (function () {
   window.ACTIVE_MAP_START = 130;
   window.ACTIVE_MAP_FINISH = 630;
-  var getRandomInt = function (min, max) {
-    return Math.floor(Math.random() * (max - min)) + min;
-  };
+  window.mapPinMain = document.querySelector('.map__pin--main');
+  var ESC_KEYCODE = 27;
 
-  var generateAds = function () {
-    var PIN_WIDTH = 50;
-    var PIN_HEIGHT = 70;
-    var offers = ['palace', 'flat', 'house', 'bungalo'];
+  var firstUserPinClickHandler = function () {
 
-    var ads = [];
-
-    for (var i = 0; i < 8; i++) {
-      ads.push({
-        avatar: 'img/avatars/user' + String(i + 1).padStart(2, '0') + '.png',
-        headline: 'Заголовок ' + (i + 1),
-        type: offers[getRandomInt(0, offers.length)],
-        location: {
-          x: getRandomInt(0 - PIN_WIDTH / 2, document.querySelector('.map__pins').offsetWidth - PIN_WIDTH / 2),
-          y: getRandomInt(window.ACTIVE_MAP_START - PIN_HEIGHT, window.ACTIVE_MAP_FINISH - PIN_HEIGHT)
-        }
-      });
+    if (!sceneIsActive) {
+      activateScene();
     }
-
-    return ads;
+    mapPinMain.removeEventListener('click', firstUserPinClickHandler);
   };
-  var errorHandler = 1; // временно для тестов
+
+  mapPinMain.addEventListener('click', firstUserPinClickHandler);
+
+  var sceneIsActive = false;
+
+  var activateScene = function () {
+    mapSetup.classList.remove('map--faded');
+    adFormSetup.classList.remove('ad-form--disabled');
+    window.util.toggleElementsDisabledValue(adFormElements);
+    window.backend.load(createApartments, errorHandler);
+    sceneIsActive = true;
+  };
+
+  var disableScene = function () {
+    window.util.toggleElementsDisabledValue(adFormElements, true);
+    mapSetup.classList.add('map--faded');
+    adFormSetup.classList.add('ad-form--disabled');
+    sceneIsActive = false;
+  };
+
+  var adFormElements = document.querySelectorAll('.ad-form__element');
+  var disableScene = function () {
+    window.util.toggleElementsDisabledValue(adFormElements, true);
+    mapSetup.classList.add('map--faded');
+    adFormSetup.classList.add('ad-form--disabled');
+    sceneIsActive = false;
+  };
+  var errorHandler = function () {
+    var errorParent = document.querySelector('main');
+    var errorContainer = document.querySelector('#error')
+      .content
+      .querySelector('.error').cloneNode(true);
+
+    errorParent.appendChild(errorContainer);
+
+    disableScene();
+
+    var onErrorClose = function (evt) {
+
+      if (evt.type === 'click') {
+        errorParent.removeChild(errorContainer);
+      } else if (evt.type === 'keydown') {
+        if (evt.keyCode === ESC_KEYCODE) {
+          errorParent.removeChild(errorContainer);
+        }
+      }
+      activateScene();
+
+      document.removeEventListener('click', onErrorClose);
+      document.removeEventListener('keydown', onErrorClose);
+
+    };
+
+    document.addEventListener('click', onErrorClose);
+    document.addEventListener('keydown', onErrorClose);
+
+  };
   var createApartments = function (apartmentServerSideData) {
     var apartmentsList = [];
     for (var i = 0; i < apartmentServerSideData.length; i++) {
