@@ -1,8 +1,8 @@
 'use strict';
 (function () {
 
-  var LOAD_URL = 'https://js.dump.academy/code-and-magick/data';
-  var UPLOAD_URL = 'https://js.dump.academy/code-and-magick';
+  var LOAD_URL = 'https://js.dump.academy/keksobooking/data';
+  var UPLOAD_URL = 'https://js.dump.academy/keksobooking';
   var STATUS_GOOD = 200;
   var TIMEOUT = 10000;
 
