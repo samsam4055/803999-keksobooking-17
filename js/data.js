@@ -4,6 +4,7 @@
   window.ACTIVE_MAP_START = 130;
   window.ACTIVE_MAP_FINISH = 630;
   window.mapPinMain = document.querySelector('.map__pin--main');
+  var adFormElements = document.querySelectorAll('.ad-form__element');
   var ESC_KEYCODE = 27;
 
   var firstUserPinClickHandler = function () {
@@ -11,16 +12,16 @@
     if (!sceneIsActive) {
       activateScene();
     }
-    mapPinMain.removeEventListener('click', firstUserPinClickHandler);
+    window.mapPinMain.removeEventListener('click', firstUserPinClickHandler);
   };
 
-  mapPinMain.addEventListener('click', firstUserPinClickHandler);
+  window.mapPinMain.addEventListener('click', firstUserPinClickHandler);
 
   var sceneIsActive = false;
 
   var activateScene = function () {
-    mapSetup.classList.remove('map--faded');
-    adFormSetup.classList.remove('ad-form--disabled');
+    window.mapSetup.classList.remove('map--faded');
+    window.adFormSetup.classList.remove('ad-form--disabled');
     window.util.toggleElementsDisabledValue(adFormElements);
     window.backend.load(createApartments, errorHandler);
     sceneIsActive = true;
@@ -28,16 +29,8 @@
 
   var disableScene = function () {
     window.util.toggleElementsDisabledValue(adFormElements, true);
-    mapSetup.classList.add('map--faded');
-    adFormSetup.classList.add('ad-form--disabled');
-    sceneIsActive = false;
-  };
-
-  var adFormElements = document.querySelectorAll('.ad-form__element');
-  var disableScene = function () {
-    window.util.toggleElementsDisabledValue(adFormElements, true);
-    mapSetup.classList.add('map--faded');
-    adFormSetup.classList.add('ad-form--disabled');
+    window.mapSetup.classList.add('map--faded');
+    window.adFormSetup.classList.add('ad-form--disabled');
     sceneIsActive = false;
   };
   var errorHandler = function () {
