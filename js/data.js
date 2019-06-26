@@ -28,6 +28,16 @@
 
     return ads;
   };
-  window.ads = generateAds();
+  var errorHandler = 1; // временно для тестов
+  var createApartments = function (apartmentServerSideData) {
+    var apartmentsList = [];
+    for (var i = 0; i < apartmentServerSideData.length; i++) {
+      var apartment = apartmentServerSideData[i];
+      apartmentsList.push(apartment);
+    }
+    window.ads = apartmentsList;
+  };
+
+  window.backend.load(createApartments, errorHandler);
 
 })();
