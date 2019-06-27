@@ -22,13 +22,13 @@
   var activateScene = function () {
     window.mapSetup.classList.remove('map--faded');
     window.adFormSetup.classList.remove('ad-form--disabled');
-    window.util.toggleElementsDisabledValue(adFormElements);
+    window.util.updateElementsDisabledProperty(adFormElements);
     window.backend.load(createApartments, errorHandler);
     sceneIsActive = true;
   };
 
   var disableScene = function () {
-    window.util.toggleElementsDisabledValue(adFormElements, true);
+    window.util.updateElementsDisabledProperty(adFormElements, true);
     window.mapSetup.classList.add('map--faded');
     window.adFormSetup.classList.add('ad-form--disabled');
     sceneIsActive = false;

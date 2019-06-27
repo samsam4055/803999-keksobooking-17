@@ -1,17 +1,21 @@
 'use strict';
-window.util = (function () {
+(function () {
 
-  return {
+  window.util = (function () {
 
-    toggleElementsDisabledValue: function (element, disable) {
-      if (typeof element === 'object') {
-        for (var i = 0; i < element.length; i++) {
-          element[i].disabled = !!disable;
+    return {
+
+      updateElementsDisabledProperty: function (element, disable) {
+        if (typeof element === 'object') {
+          for (var i = 0; i < element.length; i++) {
+            element[i].disabled = !!disable;
+          }
+        } else {
+          element.disabled = !!disable;
         }
-      } else {
-        element.disabled = !!disable;
-      }
-    },
-  };
+      },
+    };
+
+  })();
 
 })();
