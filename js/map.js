@@ -1,12 +1,11 @@
 'use strict';
 
 (function () {
-  window.mapPinMain = document.querySelector('.map__pin--main');
   window.adFormSetup = document.querySelector('.ad-form');
   window.adFormInputAddress = window.adFormSetup.querySelector('#address');
-  var mapSetup = document.querySelector('.map');
+  window.mapSetup = document.querySelector('.map');
   var onMapPinMainMouseDown = function (evtDialog) {
-    mapSetup.classList.remove('map--faded');
+    window.mapSetup.classList.remove('map--faded');
     evtDialog.preventDefault();
 
     var startCoords = {
@@ -22,12 +21,12 @@
       };
 
       startCoords = {
-        x: Math.min(Math.max(moveEvt.clientX, mapSetup.offsetLeft), mapSetup.offsetWidth + mapSetup.offsetLeft),
+        x: Math.min(Math.max(moveEvt.clientX, window.mapSetup.offsetLeft), window.mapSetup.offsetWidth + window.mapSetup.offsetLeft),
         y: Math.min(Math.max(moveEvt.clientY, window.ACTIVE_MAP_START - window.scrollY - window.mapPinMain.offsetHeight), window.ACTIVE_MAP_FINISH - window.scrollY)
       };
 
       window.mapPinMain.style.top = Math.min(Math.max((window.mapPinMain.offsetTop - shift.y), window.ACTIVE_MAP_START - window.mapPinMain.offsetHeight), window.ACTIVE_MAP_FINISH) + 'px';
-      window.mapPinMain.style.left = Math.min(Math.max((window.mapPinMain.offsetLeft - shift.x), 0 - (window.mapPinMain.offsetWidth / 2)), mapSetup.offsetWidth - (window.mapPinMain.offsetWidth / 2)) + 'px';
+      window.mapPinMain.style.left = Math.min(Math.max((window.mapPinMain.offsetLeft - shift.x), 0 - (window.mapPinMain.offsetWidth / 2)), window.mapSetup.offsetWidth - (window.mapPinMain.offsetWidth / 2)) + 'px';
       window.adFormInputAddress.value = Math.round((window.mapPinMain.offsetWidth / 2) + parseInt(window.mapPinMain.style.left, 10)) + ', ' + parseInt(window.mapPinMain.style.top, 10);
 
     };

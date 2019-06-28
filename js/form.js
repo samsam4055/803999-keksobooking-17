@@ -31,8 +31,8 @@
       var adsElement = similarAdsTemplate.cloneNode(true);
 
       adsElement.style = 'left: ' + ads.location.x + 'px; top: ' + ads.location.y + 'px;';
-      adsElement.querySelector('img').src = ads.avatar;
-      adsElement.querySelector('img').alt = ads.headline;
+      adsElement.querySelector('img').src = ads.author.avatar;
+      adsElement.querySelector('img').alt = ads.offer.title;
 
       return adsElement;
     };
