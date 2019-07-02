@@ -50,11 +50,7 @@
     });
     housingType.value = 'any';
 
-    var getRandomInt = function (min, max) {
-      return Math.floor(Math.random() * (max - min)) + min;
-    };
-
-    var randomAdsSlise = getRandomInt(0, window.ads.length - 4);
+    var randomAdsSlise = window.util.getRandomInt(window.ads.length - 4);
 
     window.ads.slice(randomAdsSlise, randomAdsSlise + 5).forEach(function (ads) {
       fragment.appendChild(renderAds(ads));
