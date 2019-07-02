@@ -45,6 +45,11 @@
       return elem.offer.type === housingType.value;
     };
 
+    Array.from(document.querySelectorAll('.map__pin_filter')).forEach(function (elem) {
+      elem.parentNode.removeChild(elem);
+    });
+    housingType.value = 'any';
+
     window.ads.slice(0, 5).forEach(function (ads) {
       fragment.appendChild(renderAds(ads));
     });
