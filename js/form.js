@@ -39,36 +39,35 @@
     };
 
     var fragment = document.createDocumentFragment();
-
+    var setupSimilarList = document.querySelector('.map__pins');
     var housingType = document.querySelector('#housing-type');
     var filterOfType = function (elem) {
       return elem.offer.type === housingType.value;
     };
 
-    Array.from(document.querySelectorAll('.map__pin_filter')).forEach(function (elem) {
-      elem.parentNode.removeChild(elem);
-    });
+    var cleanPin = function () {
+      Array.from(document.querySelectorAll('.map__pin_filter')).forEach(function (elem) {
+        elem.parentNode.removeChild(elem);
+      });
+    }
+
+    cleanPin();
     housingType.value = 'any';
+    var getRandomPinSlice = function () {
+      var randomAdsSlise = window.util.getRandomInt(window.ads.length - 4);
 
-    var randomAdsSlise = window.util.getRandomInt(window.ads.length - 4);
-
-    window.ads.slice(randomAdsSlise, randomAdsSlise + 5).forEach(function (ads) {
-      fragment.appendChild(renderAds(ads));
-    });
-
+      window.ads.slice(randomAdsSlise, randomAdsSlise + 5).forEach(function (ads) {
+        fragment.appendChild(renderAds(ads));
+        setupSimilarList.appendChild(fragment);
+      });
+    }
+    getRandomPinSlice();
     housingType.addEventListener('change', function () {
       if (housingType.value === 'any') {
-        Array.from(document.querySelectorAll('.map__pin_filter')).forEach(function (elem) {
-          elem.parentNode.removeChild(elem);
-        });
-        window.ads.slice(0, 5).forEach(function (ads) {
-          fragment.appendChild(renderAds(ads));
-          setupSimilarList.appendChild(fragment);
-        });
+        cleanPin();
+        getRandomPinSlice();
       } else {
-        Array.from(document.querySelectorAll('.map__pin_filter')).forEach(function (elem) {
-          elem.parentNode.removeChild(elem);
-        });
+        cleanPin();
         window.ads.filter(filterOfType).slice(0, 5).forEach(function (ads) {
           fragment.appendChild(renderAds(ads));
           setupSimilarList.appendChild(fragment);
@@ -76,9 +75,6 @@
       }
     });
 
-    var setupSimilarList = document.querySelector('.map__pins');
-
-    setupSimilarList.appendChild(fragment);
     timeInSelect.addEventListener('change', onTimeClickSelectChange);
     timeOutSelect.addEventListener('change', onTimeClickSelectChange);
     typeSelect.addEventListener('change', onTypeClickSelectChange);
