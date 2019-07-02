@@ -49,7 +49,7 @@
       Array.from(document.querySelectorAll('.map__pin_filter')).forEach(function (elem) {
         elem.parentNode.removeChild(elem);
       });
-    }
+    };
 
     cleanPin();
     housingType.value = 'any';
@@ -60,7 +60,7 @@
         fragment.appendChild(renderAds(ads));
         setupSimilarList.appendChild(fragment);
       });
-    }
+    };
     getRandomPinSlice();
     housingType.addEventListener('change', function () {
       if (housingType.value === 'any') {
