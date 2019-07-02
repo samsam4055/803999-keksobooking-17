@@ -54,7 +54,7 @@
       return Math.floor(Math.random() * (max - min)) + min;
     };
 
-    var randomAdsSlise = getRandomInt(0, window.ads.length - 5);
+    var randomAdsSlise = getRandomInt(0, window.ads.length - 4);
 
     window.ads.slice(randomAdsSlise, randomAdsSlise + 5).forEach(function (ads) {
       fragment.appendChild(renderAds(ads));
