@@ -51,7 +51,7 @@
     housingType.value = 'any';
 
     var getRandomInt = function (min, max) {
-      return Math.floor(Math.random() * (max - min)) + min; 
+      return Math.floor(Math.random() * (max - min)) + min;
     };
 
     var randomAdsSlise = getRandomInt(0, window.ads.length - 5);
