@@ -45,15 +45,15 @@
       return elem.offer.type === housingType.value;
     };
 
-    var cleanPin = function () {
+    var cleanPins = function () {
       Array.from(document.querySelectorAll('.map__pin_filter')).forEach(function (elem) {
         elem.parentNode.removeChild(elem);
       });
     };
 
-    cleanPin();
+    cleanPins();
     housingType.value = 'any';
-    var getRandomPinSlice = function () {
+    var drawingRandomSlicePins = function () {
       var randomAdsSlise = window.util.getRandomInt(window.ads.length - 4);
 
       window.ads.slice(randomAdsSlise, randomAdsSlise + 5).forEach(function (ads) {
@@ -61,13 +61,12 @@
         setupSimilarList.appendChild(fragment);
       });
     };
-    getRandomPinSlice();
+    drawingRandomSlicePins();
     housingType.addEventListener('change', function () {
+      cleanPins();
       if (housingType.value === 'any') {
-        cleanPin();
-        getRandomPinSlice();
+        drawingRandomSlicePins();
       } else {
-        cleanPin();
         window.ads.filter(filterOfType).slice(0, 5).forEach(function (ads) {
           fragment.appendChild(renderAds(ads));
           setupSimilarList.appendChild(fragment);
