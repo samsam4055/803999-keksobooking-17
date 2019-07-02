@@ -33,15 +33,41 @@
       adsElement.style = 'left: ' + ads.location.x + 'px; top: ' + ads.location.y + 'px;';
       adsElement.querySelector('img').src = ads.author.avatar;
       adsElement.querySelector('img').alt = ads.offer.title;
+      adsElement.classList.add('map__pin_filter');
 
       return adsElement;
     };
 
     var fragment = document.createDocumentFragment();
 
-    for (var i = 0; i < window.ads.length; i++) {
-      fragment.appendChild(renderAds(window.ads[i]));
-    }
+    var housingType = document.querySelector('#housing-type');
+    var filterOfType = function (elem) {
+      return elem.offer.type === housingType.value;
+    };
+
+    window.ads.slice(0, 5).forEach(function (ads) {
+      fragment.appendChild(renderAds(ads));
+    });
+
+    housingType.addEventListener('change', function () {
+      if (housingType.value === 'any') {
+        Array.from(document.querySelectorAll('.map__pin_filter')).forEach(function (elem) {
+          elem.parentNode.removeChild(elem);
+        });
+        window.ads.slice(0, 5).forEach(function (ads) {
+          fragment.appendChild(renderAds(ads));
+          setupSimilarList.appendChild(fragment);
+        });
+      } else {
+        Array.from(document.querySelectorAll('.map__pin_filter')).forEach(function (elem) {
+          elem.parentNode.removeChild(elem);
+        });
+        window.ads.filter(filterOfType).slice(0, 5).forEach(function (ads) {
+          fragment.appendChild(renderAds(ads));
+          setupSimilarList.appendChild(fragment);
+        });
+      }
+    });
 
     var setupSimilarList = document.querySelector('.map__pins');
 
