@@ -62,6 +62,8 @@
         fragment.appendChild(renderAds(ads));
         setupSimilarList.appendChild(fragment);
       });
+      var mapPin = document.querySelector('.map__pins');
+      mapPin.addEventListener('click', window.onMapPinClick);
     };
     drawingRandomSlicePins();
     housingType.addEventListener('change', function () {
