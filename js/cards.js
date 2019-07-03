@@ -8,6 +8,9 @@
       var similarCardsTemplate = document.querySelector('#card')
         .content
         .querySelector('.map__card');
+      var similarPhotosTemplate = document.querySelector('#card')
+        .content
+        .querySelector('.popup__photos');
 
       var renderCards = function () {
         var cardsElement = similarCardsTemplate.cloneNode(true);
@@ -24,7 +27,12 @@
           cardsElement.querySelector('.popup__text--time').innerText = 'Заезд после ' + ads.offer.checkin + ', выезд до ' + ads.offer.checkout;
           // добавить удобства
           cardsElement.querySelector('.popup__description').innerText = ads.offer.description;
-          cardsElement.querySelector('.popup__photos > img').src = ads.offer.photos[0]; // доработать - нужны все фото
+          //cardsElement.querySelector('.popup__photos > img').src = ads.offer.photos[0]; // доработать - нужны все фото
+          
+          ads.offer.photos.forEach(function (photo) {
+            var photoElement = similarPhotosTemplate.cloneNode(true);
+          cardsElement.querySelector('.popup__photos > img').src = photo; // доработать - нужны все фото
+          });
         }
       });
       
