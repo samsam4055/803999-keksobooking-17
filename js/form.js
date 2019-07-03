@@ -33,19 +33,47 @@
       adsElement.style = 'left: ' + ads.location.x + 'px; top: ' + ads.location.y + 'px;';
       adsElement.querySelector('img').src = ads.author.avatar;
       adsElement.querySelector('img').alt = ads.offer.title;
+      adsElement.classList.add('map__pin_filter');
 
       return adsElement;
     };
 
     var fragment = document.createDocumentFragment();
-
-    for (var i = 0; i < window.ads.length; i++) {
-      fragment.appendChild(renderAds(window.ads[i]));
-    }
-
     var setupSimilarList = document.querySelector('.map__pins');
+    var housingType = document.querySelector('#housing-type');
+    var filterOfType = function (elem) {
+      return elem.offer.type === housingType.value;
+    };
 
-    setupSimilarList.appendChild(fragment);
+    var cleanPins = function () {
+      Array.from(document.querySelectorAll('.map__pin_filter')).forEach(function (elem) {
+        elem.parentNode.removeChild(elem);
+      });
+    };
+
+    cleanPins();
+    housingType.value = 'any';
+    var drawingRandomSlicePins = function () {
+      var randomAdsSlise = window.util.getRandomInt(window.ads.length - 4);
+
+      window.ads.slice(randomAdsSlise, randomAdsSlise + 5).forEach(function (ads) {
+        fragment.appendChild(renderAds(ads));
+        setupSimilarList.appendChild(fragment);
+      });
+    };
+    drawingRandomSlicePins();
+    housingType.addEventListener('change', function () {
+      cleanPins();
+      if (housingType.value === 'any') {
+        drawingRandomSlicePins();
+      } else {
+        window.ads.filter(filterOfType).slice(0, 5).forEach(function (ads) {
+          fragment.appendChild(renderAds(ads));
+          setupSimilarList.appendChild(fragment);
+        });
+      }
+    });
+
     timeInSelect.addEventListener('change', onTimeClickSelectChange);
     timeOutSelect.addEventListener('change', onTimeClickSelectChange);
     typeSelect.addEventListener('change', onTypeClickSelectChange);
