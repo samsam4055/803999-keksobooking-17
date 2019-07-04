@@ -61,9 +61,9 @@
     }
   };
   window.onMapPinClick = function (mapPinClickEvt) {
-    var targetPath = '';
+
     if (mapPinClickEvt.target.classList.contains('map__pin_filter') || mapPinClickEvt.target.nodeName === 'IMG' && mapPinClickEvt.target.alt !== 'Метка объявления') {
-      targetPath = mapPinClickEvt.target.alt;
+      var targetPath = mapPinClickEvt.target.alt;
       if (mapPinClickEvt.target.classList.contains('map__pin_filter')) {
         targetPath = mapPinClickEvt.target.firstChild.alt;
       }
