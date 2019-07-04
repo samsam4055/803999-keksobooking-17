@@ -62,9 +62,9 @@
   };
   window.onMapPinClick = function (mapPinClickEvt) {
     var targetPath = '';
-    if (mapPinClickEvt.originalTarget.classList.contains('map__pin_filter') || mapPinClickEvt.originalTarget.nodeName === 'IMG' && mapPinClickEvt.originalTarget.alt !== 'Метка объявления') {
+    if (mapPinClickEvt.target.classList.contains('map__pin_filter') || mapPinClickEvt.target.nodeName === 'IMG' && mapPinClickEvt.target.alt !== 'Метка объявления') {
       targetPath = mapPinClickEvt.target.alt;
-      if (mapPinClickEvt.originalTarget.classList.contains('map__pin_filter')) {
+      if (mapPinClickEvt.target.classList.contains('map__pin_filter')) {
         targetPath = mapPinClickEvt.target.firstChild.alt;
       }
 
