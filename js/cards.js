@@ -17,12 +17,12 @@
       imgModel.src = photos[i];
       nodes.appendChild(imgModel);
     }
-  imgContainer.appendChild(nodes);
+    imgContainer.appendChild(nodes);
   };
   var closeCardPopup = function () {
     Array.from(document.querySelectorAll('.map__card')).forEach(function (elem) {
-        elem.parentNode.removeChild(elem);
-      });
+      elem.parentNode.removeChild(elem);
+    });
   };
 
   var definitionTypeHousing = function (typeHousing) {
@@ -49,9 +49,9 @@
 
   var renderFeature = function (cardFeatures) {
     var features = document.querySelectorAll('.popup__feature');
-var setDisplayStyle = function (feature) {
-        document.querySelector('.popup__feature--' + feature).style = 'display: inline-block';
-      };
+    var setDisplayStyle = function (feature) {
+      document.querySelector('.popup__feature--' + feature).style = 'display: inline-block';
+    };
     features.forEach(function (it) {
       it.style = 'display: none';
     });
