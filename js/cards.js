@@ -82,7 +82,6 @@
             cardsElement.querySelector('.popup__type').innerText = definitionTypeHousing(ads.offer.type);
             cardsElement.querySelector('.popup__text--capacity').innerText = 'комнат: ' + ads.offer.rooms + ' гостей: ' + ads.offer.guests;
             cardsElement.querySelector('.popup__text--time').innerText = 'Заезд после ' + ads.offer.checkin + ', выезд до ' + ads.offer.checkout;
-            // добавить удобства
             window.cardFeatures = ads.offer.features;
             cardsElement.querySelector('.popup__description').innerText = ads.offer.description;
             window.cardPhotos = ads.offer.photos;
