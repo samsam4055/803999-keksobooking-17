@@ -45,6 +45,19 @@
     return offerType;
   };
 
+  var renderFeature = function (cardFeatures) {
+    var features = document.querySelectorAll('.popup__feature');
+var setDisplayStyle = function (feature) {
+        document.querySelector('.popup__feature--' + feature).style = 'display: inline-block';
+      };
+    features.forEach(function (it) {
+      it.style = 'display: none';
+    });
+
+    for (var i = 0; i < cardFeatures.length; i++) {
+      setDisplayStyle(cardFeatures[i]);
+    }
+  };
   window.onMapPinClick = function (mapPinClickEvt) {
     var tmp = '';
     if(mapPinClickEvt.originalTarget.classList.contains('map__pin_filter') || mapPinClickEvt.originalTarget.nodeName === 'IMG' && mapPinClickEvt.originalTarget.alt != 'Метка объявления') { 
@@ -68,6 +81,7 @@
             cardsElement.querySelector('.popup__text--capacity').innerText = 'комнат: ' + ads.offer.rooms + ' гостей: ' + ads.offer.guests;
             cardsElement.querySelector('.popup__text--time').innerText = 'Заезд после ' + ads.offer.checkin + ', выезд до ' + ads.offer.checkout;
             // добавить удобства
+            window.cardFeatures = ads.offer.features;
             cardsElement.querySelector('.popup__description').innerText = ads.offer.description;
             window.cardPhotos = ads.offer.photos;
           }
@@ -82,6 +96,7 @@
 
       setupSimilarListCards.appendChild(fragmentCards);
       renderImages(window.cardPhotos);
+      renderFeature(window.cardFeatures);
       var popupClose = document.querySelector('.popup__close');
       popupClose.addEventListener('click', closeCardPopup);
     }
