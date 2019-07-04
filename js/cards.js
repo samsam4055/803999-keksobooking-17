@@ -1,4 +1,5 @@
-
+'use strict';
+(function () {
 
   var similarCardsTemplate = document.querySelector('#card')
       .content
@@ -25,6 +26,7 @@
   };
 
   var definitionTypeHousing = function (typeHousing) {
+    var offerType = '';
     switch (typeHousing) {
       case 'flat':
         offerType = 'Квартира';
@@ -60,7 +62,7 @@ var setDisplayStyle = function (feature) {
   };
   window.onMapPinClick = function (mapPinClickEvt) {
     var tmp = '';
-    if(mapPinClickEvt.originalTarget.classList.contains('map__pin_filter') || mapPinClickEvt.originalTarget.nodeName === 'IMG' && mapPinClickEvt.originalTarget.alt != 'Метка объявления') { 
+    if (mapPinClickEvt.originalTarget.classList.contains('map__pin_filter') || mapPinClickEvt.originalTarget.nodeName === 'IMG' && mapPinClickEvt.originalTarget.alt !== 'Метка объявления') {
       tmp = mapPinClickEvt.target.alt;
       if (mapPinClickEvt.originalTarget.classList.contains('map__pin_filter')) {
         tmp = mapPinClickEvt.target.firstChild.alt;
@@ -72,7 +74,7 @@ var setDisplayStyle = function (feature) {
         var cardsElement = similarCardsTemplate.cloneNode(true);
 
         window.ads.forEach(function (ads) {
-          if(ads.offer.title === tmp){
+          if (ads.offer.title === tmp) {
             cardsElement.querySelector('.popup__title').innerText = ads.offer.title;
             cardsElement.querySelector('img').src = ads.author.avatar;
             cardsElement.querySelector('.popup__text--address').innerText = ads.offer.address;
@@ -91,7 +93,7 @@ var setDisplayStyle = function (feature) {
       };
 
       var fragmentCards = document.createDocumentFragment();
-      fragmentCards.appendChild(renderCards ());
+      fragmentCards.appendChild(renderCards());
       var setupSimilarListCards = document.querySelector('body');
 
       setupSimilarListCards.appendChild(fragmentCards);
@@ -102,3 +104,4 @@ var setDisplayStyle = function (feature) {
     }
 
   };
+})();
