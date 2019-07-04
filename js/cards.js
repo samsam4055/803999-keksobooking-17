@@ -23,6 +23,28 @@
         elem.parentNode.removeChild(elem);
       });
   };
+
+  var definitionTypeHousing = function (typeHousing) {
+    switch (typeHousing) {
+      case 'flat':
+        offerType = 'Квартира';
+        break;
+
+      case 'bungalo':
+        offerType = 'Бунгало';
+        break;
+
+      case 'house':
+        offerType = 'Дом';
+        break;
+
+      case 'palace':
+        offerType = 'Дворец';
+        break;
+    }
+    return offerType;
+  };
+
   window.onMapPinClick = function (mapPinClickEvt) {
     var tmp = '';
     if(mapPinClickEvt.originalTarget.classList.contains('map__pin_filter') || mapPinClickEvt.originalTarget.nodeName === 'IMG' && mapPinClickEvt.originalTarget.alt != 'Метка объявления') { 
@@ -42,8 +64,8 @@
             cardsElement.querySelector('img').src = ads.author.avatar;
             cardsElement.querySelector('.popup__text--address').innerText = ads.offer.address;
             cardsElement.querySelector('.popup__text--price').innerText = ads.offer.price + ' р/ночь';
-            cardsElement.querySelector('.popup__type').innerText = ads.offer.type; // требует доработки
-            cardsElement.querySelector('.popup__text--capacity').innerText = 'комнат: ' + ads.offer.rooms + ' гостей: ' + ads.offer.guests; // требует доработки
+            cardsElement.querySelector('.popup__type').innerText = definitionTypeHousing(ads.offer.type);
+            cardsElement.querySelector('.popup__text--capacity').innerText = 'комнат: ' + ads.offer.rooms + ' гостей: ' + ads.offer.guests;
             cardsElement.querySelector('.popup__text--time').innerText = 'Заезд после ' + ads.offer.checkin + ', выезд до ' + ads.offer.checkout;
             // добавить удобства
             cardsElement.querySelector('.popup__description').innerText = ads.offer.description;
