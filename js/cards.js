@@ -19,10 +19,16 @@
     }
     imgContainer.appendChild(nodes);
   };
+
   var closeCardPopup = function () {
     Array.from(document.querySelectorAll('.map__card')).forEach(function (elem) {
       elem.parentNode.removeChild(elem);
     });
+    document.removeEventListener('keydown', onClosePopupEsc);
+  };
+
+  var onClosePopupEsc = function (evt) {
+    window.util.isEsc(evt, closeCardPopup);
   };
 
   var definitionTypeHousing = function (typeHousing) {
@@ -100,6 +106,7 @@
       renderFeature(window.cardFeatures);
       var popupClose = document.querySelector('.popup__close');
       popupClose.addEventListener('click', closeCardPopup);
+      document.addEventListener('keydown', onClosePopupEsc);
     }
 
   };
