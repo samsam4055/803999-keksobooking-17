@@ -61,11 +61,11 @@
     }
   };
   window.onMapPinClick = function (mapPinClickEvt) {
-    var tmp = '';
+    var targetPath = '';
     if (mapPinClickEvt.originalTarget.classList.contains('map__pin_filter') || mapPinClickEvt.originalTarget.nodeName === 'IMG' && mapPinClickEvt.originalTarget.alt !== 'Метка объявления') {
-      tmp = mapPinClickEvt.target.alt;
+      targetPath = mapPinClickEvt.target.alt;
       if (mapPinClickEvt.originalTarget.classList.contains('map__pin_filter')) {
-        tmp = mapPinClickEvt.target.firstChild.alt;
+        targetPath = mapPinClickEvt.target.firstChild.alt;
       }
 
       closeCardPopup();
@@ -74,7 +74,7 @@
         var cardsElement = similarCardsTemplate.cloneNode(true);
 
         window.ads.forEach(function (ads) {
-          if (ads.offer.title === tmp) {
+          if (ads.offer.title === targetPath) {
             cardsElement.querySelector('.popup__title').innerText = ads.offer.title;
             cardsElement.querySelector('img').src = ads.author.avatar;
             cardsElement.querySelector('.popup__text--address').innerText = ads.offer.address;
