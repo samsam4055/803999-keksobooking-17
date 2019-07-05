@@ -156,7 +156,7 @@
     window.mapPinMain.style.top = yCoordinate + 'px';
   };
 
-  var clickResetForm = function () {
+  var resetForm = function () {
     window.adFormSetup.reset();
     resetPinCoordinates(PIN_MAIN_START_X, PIN_MAIN_START_Y);
     cleanPins();
@@ -166,6 +166,66 @@
     window.closeCardPopup();
   };
 
-  formReset.addEventListener('click', clickResetForm);
+  formReset.addEventListener('click', resetForm);
+
+  var successParent = document.querySelector('main');
+  var successContainer = document
+      .querySelector('#success')
+      .content
+      .querySelector('.success').cloneNode(true);
+
+  var onSuccessClose = function (evt) {
+
+    if (evt.type === 'click') {
+      successParent.removeChild(successContainer);
+      document.removeEventListener('click', onSuccessClose);
+      document.removeEventListener('keydown', onSuccessClose);
+    } else if (evt.type === 'keydown') {
+      if (evt.keyCode === window.ESC_KEYCODE) {
+        successParent.removeChild(successContainer);
+        document.removeEventListener('click', onSuccessClose);
+        document.removeEventListener('keydown', onSuccessClose);
+      }
+    }
+  };
+
+  var errorParent = document.querySelector('main');
+  var errorContainer = document
+      .querySelector('#error')
+      .content
+      .querySelector('.error').cloneNode(true);
+
+  var onErrorClose = function (evt) {
+
+    if (evt.type === 'click') {
+      errorParent.removeChild(errorContainer);
+      document.removeEventListener('click', onErrorClose);
+      document.removeEventListener('keydown', onErrorClose);
+    } else if (evt.type === 'keydown') {
+      if (evt.keyCode === window.ESC_KEYCODE) {
+        errorParent.removeChild(errorContainer);
+        document.removeEventListener('click', onErrorClose);
+        document.removeEventListener('keydown', onErrorClose);
+      }
+    }
+  };
+
+  var errorHandler = function () {
+    errorParent.appendChild(errorContainer);
+    document.addEventListener('click', onErrorClose);
+    document.addEventListener('keydown', onErrorClose);
+  };
+
+  var successHandler = function () {
+    successParent.appendChild(successContainer);
+    resetForm();
+    document.addEventListener('click', onSuccessClose);
+    document.addEventListener('keydown', onSuccessClose);
+  };
+
+  window.adFormSetup.addEventListener('submit', function (evt) {
+    window.backend.upload(new FormData(window.adFormSetup), successHandler, errorHandler);
+    evt.preventDefault();
+  });
 
 })();

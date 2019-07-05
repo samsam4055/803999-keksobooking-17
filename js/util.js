@@ -1,6 +1,6 @@
 'use strict';
 (function () {
-  var ESC_KEYCODE = 27;
+  window.ESC_KEYCODE = 27;
   window.util = (function () {
 
     return {
