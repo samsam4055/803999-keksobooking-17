@@ -3,6 +3,8 @@
 (function () {
   var MAX_NUM_PINS = 5;
   var MAX_NUM_PINS_SLISE = MAX_NUM_PINS - 1;
+  var PIN_MAIN_START_X = 570;
+  var PIN_MAIN_START_Y = 375;
   var mapFiltersSetupSelect = document.querySelectorAll('.map__filters > select');
   var mapFiltersSetupFieldset = document.querySelectorAll('.map__filters > fieldset');
   var adFormSetupFieldset = document.querySelectorAll('.ad-form > fieldset');
@@ -19,10 +21,10 @@
 
   window.adFormInputAddress.value = parseInt(window.mapPinMain.style.left, 10) + ', ' + parseInt(window.mapPinMain.style.top, 10);
   var cleanPins = function () {
-      Array.from(document.querySelectorAll('.map__pin_filter')).forEach(function (elem) {
-        elem.parentNode.removeChild(elem);
-      });
-    };
+    Array.from(document.querySelectorAll('.map__pin_filter')).forEach(function (elem) {
+      elem.parentNode.removeChild(elem);
+    });
+  };
   window.onMapPinMainMouseup = function () {
 
     window.adFormSetup.classList.remove('ad-form--disabled');
@@ -146,8 +148,15 @@
 
   inputRoomNumber.addEventListener('change', changeInputRoomNumber);
   var formReset = document.querySelector('.ad-form__reset');
+
+  var resetPinCoordinates = function (xCoordinate, yCoordinate) {
+    window.mapPinMain.style.left = xCoordinate + 'px';
+    window.mapPinMain.style.top = yCoordinate + 'px';
+  };
+
   var clickResetForm = function () {
     window.adFormSetup.reset();
+    resetPinCoordinates(PIN_MAIN_START_X, PIN_MAIN_START_Y);
     cleanPins();
     updateElementsDisabledProperty([mapFiltersSetupSelect, mapFiltersSetupFieldset, adFormSetupFieldset], true);
     window.mapSetup.classList.add('map--faded');
