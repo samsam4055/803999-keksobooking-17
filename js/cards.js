@@ -36,20 +36,21 @@
     switch (offerType) {
       case 'flat':
         offerType = 'Квартира';
-        return '...';
+        return offerType;
 
       case 'bungalo':
         offerType = 'Бунгало';
-        return '...';
+        return offerType;
 
       case 'house':
         offerType = 'Дом';
-        return '...';
+        return offerType;
 
       case 'palace':
         offerType = 'Дворец';
-        return '...';
+        return offerType;
     }
+    return offerType;
   };
 
   var renderFeature = function (cardFeatures) {
