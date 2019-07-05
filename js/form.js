@@ -18,7 +18,11 @@
   updateElementsDisabledProperty([mapFiltersSetupSelect, mapFiltersSetupFieldset, adFormSetupFieldset], true);
 
   window.adFormInputAddress.value = parseInt(window.mapPinMain.style.left, 10) + ', ' + parseInt(window.mapPinMain.style.top, 10);
-
+  var cleanPins = function () {
+      Array.from(document.querySelectorAll('.map__pin_filter')).forEach(function (elem) {
+        elem.parentNode.removeChild(elem);
+      });
+    };
   window.onMapPinMainMouseup = function () {
 
     window.adFormSetup.classList.remove('ad-form--disabled');
@@ -45,12 +49,6 @@
     var housingType = document.querySelector('#housing-type');
     var typeFilter = function (elem) {
       return elem.offer.type === housingType.value;
-    };
-
-    var cleanPins = function () {
-      Array.from(document.querySelectorAll('.map__pin_filter')).forEach(function (elem) {
-        elem.parentNode.removeChild(elem);
-      });
     };
 
     cleanPins();
@@ -147,5 +145,16 @@
   };
 
   inputRoomNumber.addEventListener('change', changeInputRoomNumber);
+  var formReset = document.querySelector('.ad-form__reset');
+  var clickResetForm = function () {
+    window.adFormSetup.reset();
+    cleanPins();
+    updateElementsDisabledProperty([mapFiltersSetupSelect, mapFiltersSetupFieldset, adFormSetupFieldset], true);
+    window.mapSetup.classList.add('map--faded');
+    window.adFormSetup.classList.add('ad-form--disabled');
+    window.closeCardPopup();
+  };
+
+  formReset.addEventListener('click', clickResetForm);
 
 })();

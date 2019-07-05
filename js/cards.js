@@ -20,7 +20,7 @@
     imgContainer.appendChild(nodes);
   };
 
-  var closeCardPopup = function () {
+  window.closeCardPopup = function () {
     Array.from(document.querySelectorAll('.map__card')).forEach(function (elem) {
       elem.parentNode.removeChild(elem);
     });
@@ -28,7 +28,7 @@
   };
 
   var onClosePopupEsc = function (evt) {
-    window.util.isEsc(evt, closeCardPopup);
+    window.util.isEsc(evt, window.closeCardPopup);
   };
 
   var definitionTypeHousing = function (typeHousing) {
@@ -74,7 +74,7 @@
         targetPath = mapPinClickEvt.target.firstChild.alt;
       }
 
-      closeCardPopup();
+      window.closeCardPopup();
 
       var renderCards = function () {
         var cardsElement = similarCardsTemplate.cloneNode(true);
@@ -105,7 +105,7 @@
       renderImages(window.cardPhotos);
       renderFeature(window.cardFeatures);
       var popupClose = document.querySelector('.popup__close');
-      popupClose.addEventListener('click', closeCardPopup);
+      popupClose.addEventListener('click', window.closeCardPopup);
       document.addEventListener('keydown', onClosePopupEsc);
     }
 
