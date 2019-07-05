@@ -1,6 +1,7 @@
 'use strict';
 
 (function () {
+  window.mapPinMain.querySelector('img').classList.add('map__pin--main--img');
   var MAX_NUM_PINS = 5;
   var MAX_NUM_PINS_SLISE = MAX_NUM_PINS - 1;
   var PIN_MAIN_START_X = 570;
@@ -31,7 +32,8 @@
 
     updateElementsDisabledProperty([mapFiltersSetupSelect, mapFiltersSetupFieldset, adFormSetupFieldset], false);
 
-    var similarAdsTemplate = document.querySelector('#pin')
+    var similarAdsTemplate = document
+      .querySelector('#pin')
       .content
       .querySelector('.map__pin');
 

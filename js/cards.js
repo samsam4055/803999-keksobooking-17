@@ -1,7 +1,8 @@
 'use strict';
 (function () {
 
-  var similarCardsTemplate = document.querySelector('#card')
+  var similarCardsTemplate = document
+      .querySelector('#card')
       .content
       .querySelector('.map__card');
   var renderImages = function (photos) {
@@ -31,26 +32,24 @@
     window.util.isEsc(evt, window.closeCardPopup);
   };
 
-  var definitionTypeHousing = function (typeHousing) {
-    var offerType = '';
-    switch (typeHousing) {
+  var definitionTypeHousing = function (offerType) {
+    switch (offerType) {
       case 'flat':
         offerType = 'Квартира';
-        break;
+        return '...';
 
       case 'bungalo':
         offerType = 'Бунгало';
-        break;
+        return '...';
 
       case 'house':
         offerType = 'Дом';
-        break;
+        return '...';
 
       case 'palace':
         offerType = 'Дворец';
-        break;
+        return '...';
     }
-    return offerType;
   };
 
   var renderFeature = function (cardFeatures) {
@@ -58,8 +57,8 @@
     var setDisplayStyle = function (feature) {
       document.querySelector('.popup__feature--' + feature).style = 'display: inline-block';
     };
-    features.forEach(function (it) {
-      it.style = 'display: none';
+    features.forEach(function (feature) {
+      feature.style = 'display: none';
     });
 
     for (var i = 0; i < cardFeatures.length; i++) {
@@ -68,7 +67,7 @@
   };
   window.onMapPinClick = function (mapPinClickEvt) {
 
-    if (mapPinClickEvt.target.classList.contains('map__pin_filter') || mapPinClickEvt.target.nodeName === 'IMG' && mapPinClickEvt.target.alt !== 'Метка объявления') {
+    if (mapPinClickEvt.target.classList.contains('map__pin_filter') || mapPinClickEvt.target.nodeName === 'IMG' && !mapPinClickEvt.target.classList.contains('map__pin--main--img')) {
       var targetPath = mapPinClickEvt.target.alt;
       if (mapPinClickEvt.target.classList.contains('map__pin_filter')) {
         targetPath = mapPinClickEvt.target.firstChild.alt;
