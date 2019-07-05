@@ -5,7 +5,6 @@
   window.ACTIVE_MAP_FINISH = 630;
   window.mapPinMain = document.querySelector('.map__pin--main');
   var adFormElements = document.querySelectorAll('.ad-form__element');
-  var ESC_KEYCODE = 27;
 
   var firstUserPinClickHandler = function () {
 
@@ -48,7 +47,7 @@
       if (evt.type === 'click') {
         errorParent.removeChild(errorContainer);
       } else if (evt.type === 'keydown') {
-        if (evt.keyCode === ESC_KEYCODE) {
+        if (evt.keyCode === window.ESC_KEYCODE) {
           errorParent.removeChild(errorContainer);
         }
       }

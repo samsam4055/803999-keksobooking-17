@@ -1,6 +1,6 @@
 'use strict';
 (function () {
-  var ESC_KEYCODE = 27;
+  window.ESC_KEYCODE = 27;
   window.util = (function () {
 
     return {
@@ -18,7 +18,7 @@
         return Math.floor(Math.random() * max);
       },
       isEsc: function (evt, action) {
-        if (evt.keyCode === ESC_KEYCODE) {
+        if (evt.keyCode === window.ESC_KEYCODE) {
           action();
         }
       }
