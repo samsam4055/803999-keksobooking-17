@@ -108,4 +108,44 @@
     }
   };
 
+  var inputRoomNumber = document.querySelector('#room_number');
+  var inputCapacity = document.querySelector('#capacity');
+  var inputCapacityOptions = inputCapacity.querySelectorAll('option');
+
+  var inputRoomValidateNumber = function () {
+
+    inputCapacityOptions.forEach(function (element) {
+      element.remove();
+    });
+
+    var insertInputCapacityOptions = function (elements) {
+      elements.forEach(function (element) {
+        inputCapacity.appendChild(inputCapacityOptions[element]);
+      });
+    };
+
+    switch (inputRoomNumber.selectedIndex) {
+      case 0:
+        insertInputCapacityOptions([2]);
+        break;
+      case 1:
+        insertInputCapacityOptions([1, 2]);
+        break;
+      case 2:
+        insertInputCapacityOptions([0, 1, 2]);
+        break;
+      case 3:
+        insertInputCapacityOptions([3]);
+        break;
+    }
+  };
+
+  inputRoomValidateNumber();
+
+  var changeInputRoomNumber = function () {
+    inputRoomValidateNumber();
+  };
+
+  inputRoomNumber.addEventListener('change', changeInputRoomNumber);
+
 })();
