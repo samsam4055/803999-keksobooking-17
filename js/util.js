@@ -18,7 +18,7 @@
         return Math.floor(Math.random() * max);
       },
       isEsc: function (evt, action) {
-        if (evt.keyCode === ESC_KEYCODE) {
+        if (evt.keyCode === window.ESC_KEYCODE) {
           action();
         }
       }
