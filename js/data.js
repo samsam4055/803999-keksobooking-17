@@ -42,20 +42,15 @@
 
     disableScene();
 
-    var onErrorClose = function (evt) {
-
-      if (evt.type === 'click') {
-        errorParent.removeChild(errorContainer);
-      } else if (evt.type === 'keydown') {
-        if (evt.keyCode === window.ESC_KEYCODE) {
-          errorParent.removeChild(errorContainer);
-        }
-      }
-      activateScene();
-
+    var removeErrorMessage = function () {
+      errorParent.removeChild(errorContainer);
       document.removeEventListener('click', onErrorClose);
       document.removeEventListener('keydown', onErrorClose);
+      activateScene();
+    };
 
+    var onErrorClose = function (evt) {
+      window.util.isEscOrClick(evt, removeErrorMessage);
     };
 
     document.addEventListener('click', onErrorClose);

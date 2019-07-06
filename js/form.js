@@ -6,7 +6,10 @@
   var MAX_NUM_PINS_SLISE = MAX_NUM_PINS - 1;
   var PIN_MAIN_START_X = 570;
   var PIN_MAIN_START_Y = 375;
+  var LOWER_PRICE_LIMIT = 10000;
+  var UPPER_PRICE_LIMIT = 50000;
   var mapFiltersSetupSelect = document.querySelectorAll('.map__filters > select');
+  var mapFiltersForm = document.querySelector('.map__filters');
   var mapFiltersSetupFieldset = document.querySelectorAll('.map__filters > fieldset');
   var adFormSetupFieldset = document.querySelectorAll('.ad-form > fieldset');
 
@@ -51,12 +54,64 @@
     var fragment = document.createDocumentFragment();
     var setupSimilarList = document.querySelector('.map__pins');
     var housingType = document.querySelector('#housing-type');
+    var housingRooms = document.querySelector('#housing-rooms');
+    var housingGuests = document.querySelector('#housing-guests');
+    var housingPrice = document.querySelector('#housing-price');
+
     var typeFilter = function (elem) {
+      if (housingType.value === 'any') {
+        return elem;
+      }
       return elem.offer.type === housingType.value;
     };
 
+    var numRoomsFilter = function (elem) {
+      if (housingRooms.value === 'any') {
+        return elem;
+      }
+      return elem.offer.rooms === Number(housingRooms.value);
+    };
+
+    var numGuestsFilter = function (elem) {
+      if (housingGuests.value === 'any') {
+        return elem;
+      } else if (Number(housingGuests.value) === 0) {
+        return elem.offer.guests === 0;
+      }
+      return elem.offer.guests === Number(housingGuests.value);
+    };
+
+    var numPricesFilter = function (elem) {
+      if (housingPrice.value === 'any') {
+        return elem;
+      } else if (housingPrice.value === 'high') {
+        return elem.offer.price >= UPPER_PRICE_LIMIT;
+      } else if (housingPrice.value === 'low') {
+        return elem.offer.price <= LOWER_PRICE_LIMIT;
+      } else if (housingPrice.value === 'middle') {
+        if (elem.offer.price >= LOWER_PRICE_LIMIT && elem.offer.price <= UPPER_PRICE_LIMIT) {
+          return elem.offer.price;
+        }
+      }
+      return false;
+    };
+
+    var featuresWifiFilter = function (elem) {
+      var filterFeaturesCheckboxes = document.querySelectorAll('.map__features input[type=checkbox]:checked');
+      var filtered = true;
+      if (filterFeaturesCheckboxes.length) {
+        filterFeaturesCheckboxes.forEach(function (chBox) {
+          if (!elem.offer.features.includes(chBox.value)) {
+            filtered = false;
+          }
+        });
+      }
+      return filtered;
+    };
+
+    window.closeCardPopup();
     cleanPins();
-    housingType.value = 'any';
+    mapFiltersForm.reset();
     var drawingRandomSlicePins = function () {
       var randomAdsSlise = window.util.getRandomInt(window.ads.length - MAX_NUM_PINS_SLISE);
 
@@ -68,17 +123,17 @@
       mapPin.addEventListener('click', window.onMapPinClick);
     };
     drawingRandomSlicePins();
-    housingType.addEventListener('change', function () {
+
+    var onPinFilterChange = function () {
       cleanPins();
-      if (housingType.value === 'any') {
-        drawingRandomSlicePins();
-      } else {
-        window.ads.filter(typeFilter).slice(0, MAX_NUM_PINS).forEach(function (ads) {
-          fragment.appendChild(renderAds(ads));
-          setupSimilarList.appendChild(fragment);
-        });
-      }
-    });
+      window.closeCardPopup();
+      window.ads.filter(typeFilter).filter(numRoomsFilter).filter(numGuestsFilter).filter(numPricesFilter).filter(featuresWifiFilter).slice(0, MAX_NUM_PINS).forEach(function (ads) {
+        fragment.appendChild(renderAds(ads));
+        setupSimilarList.appendChild(fragment);
+      });
+    };
+
+    mapFiltersForm.addEventListener('change', window.util.debounce(onPinFilterChange));
 
     timeInSelect.addEventListener('change', onTimeClickSelectChange);
     timeOutSelect.addEventListener('change', onTimeClickSelectChange);
@@ -158,6 +213,7 @@
 
   var resetForm = function () {
     window.adFormSetup.reset();
+    mapFiltersForm.reset();
     resetPinCoordinates(PIN_MAIN_START_X, PIN_MAIN_START_Y);
     cleanPins();
     updateElementsDisabledProperty([mapFiltersSetupSelect, mapFiltersSetupFieldset, adFormSetupFieldset], true);
@@ -174,19 +230,14 @@
       .content
       .querySelector('.success').cloneNode(true);
 
-  var onSuccessClose = function (evt) {
+  var removeSuccessMessage = function () {
+    successParent.removeChild(successContainer);
+    document.removeEventListener('click', onSuccessClose);
+    document.removeEventListener('keydown', onSuccessClose);
+  };
 
-    if (evt.type === 'click') {
-      successParent.removeChild(successContainer);
-      document.removeEventListener('click', onSuccessClose);
-      document.removeEventListener('keydown', onSuccessClose);
-    } else if (evt.type === 'keydown') {
-      if (evt.keyCode === window.ESC_KEYCODE) {
-        successParent.removeChild(successContainer);
-        document.removeEventListener('click', onSuccessClose);
-        document.removeEventListener('keydown', onSuccessClose);
-      }
-    }
+  var onSuccessClose = function (evt) {
+    window.util.isEscOrClick(evt, removeSuccessMessage);
   };
 
   var errorParent = document.querySelector('main');
@@ -195,19 +246,14 @@
       .content
       .querySelector('.error').cloneNode(true);
 
-  var onErrorClose = function (evt) {
+  var removeErrorMessage = function () {
+    errorParent.removeChild(errorContainer);
+    document.removeEventListener('click', onErrorClose);
+    document.removeEventListener('keydown', onErrorClose);
+  };
 
-    if (evt.type === 'click') {
-      errorParent.removeChild(errorContainer);
-      document.removeEventListener('click', onErrorClose);
-      document.removeEventListener('keydown', onErrorClose);
-    } else if (evt.type === 'keydown') {
-      if (evt.keyCode === window.ESC_KEYCODE) {
-        errorParent.removeChild(errorContainer);
-        document.removeEventListener('click', onErrorClose);
-        document.removeEventListener('keydown', onErrorClose);
-      }
-    }
+  var onErrorClose = function (evt) {
+    window.util.isEscOrClick(evt, removeErrorMessage);
   };
 
   var errorHandler = function () {
