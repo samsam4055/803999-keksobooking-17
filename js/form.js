@@ -6,6 +6,8 @@
   var MAX_NUM_PINS_SLISE = MAX_NUM_PINS - 1;
   var PIN_MAIN_START_X = 570;
   var PIN_MAIN_START_Y = 375;
+  var LOWER_PRICE_LIMIT = 10000;
+  var UPPER_PRICE_LIMIT = 50000;
   var mapFiltersSetupSelect = document.querySelectorAll('.map__filters > select');
   var mapFiltersForm = document.querySelector('.map__filters');
   var mapFiltersSetupFieldset = document.querySelectorAll('.map__filters > fieldset');
@@ -83,11 +85,11 @@
       if (housingPrice.value === 'any') {
         return elem;
       } else if (housingPrice.value === 'high') {
-        return elem.offer.price >= 50000;
+        return elem.offer.price >= UPPER_PRICE_LIMIT;
       } else if (housingPrice.value === 'low') {
-        return elem.offer.price <= 10000;
+        return elem.offer.price <= LOWER_PRICE_LIMIT;
       } else if (housingPrice.value === 'middle') {
-        if (elem.offer.price >= 10000 && elem.offer.price <= 50000) {
+        if (elem.offer.price >= LOWER_PRICE_LIMIT && elem.offer.price <= UPPER_PRICE_LIMIT) {
           return elem.offer.price;
         }
       }
