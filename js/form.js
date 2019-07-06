@@ -55,7 +55,6 @@
     var housingRooms = document.querySelector('#housing-rooms');
     var housingGuests = document.querySelector('#housing-guests');
     var housingPrice = document.querySelector('#housing-price');
-    var housingFeaturesAll = document.querySelector('#housing-features');
 
     var typeFilter = function (elem) {
       if (housingType.value === 'any') {
@@ -132,11 +131,7 @@
       });
     };
 
-    housingType.addEventListener('change', onPinFilterChange);
-    housingRooms.addEventListener('change', onPinFilterChange);
-    housingGuests.addEventListener('change', onPinFilterChange);
-    housingPrice.addEventListener('change', onPinFilterChange);
-    housingFeaturesAll.addEventListener('change', onPinFilterChange);
+    mapFiltersForm.addEventListener('change', window.util.debounce(onPinFilterChange));
 
     timeInSelect.addEventListener('change', onTimeClickSelectChange);
     timeOutSelect.addEventListener('change', onTimeClickSelectChange);
@@ -216,6 +211,7 @@
 
   var resetForm = function () {
     window.adFormSetup.reset();
+    mapFiltersForm.reset();
     resetPinCoordinates(PIN_MAIN_START_X, PIN_MAIN_START_Y);
     cleanPins();
     updateElementsDisabledProperty([mapFiltersSetupSelect, mapFiltersSetupFieldset, adFormSetupFieldset], true);
