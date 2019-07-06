@@ -174,19 +174,14 @@
       .content
       .querySelector('.success').cloneNode(true);
 
-  var onSuccessClose = function (evt) {
+  var removeSuccessMessage = function () {
+    successParent.removeChild(successContainer);
+    document.removeEventListener('click', onSuccessClose);
+    document.removeEventListener('keydown', onSuccessClose);
+  };
 
-    if (evt.type === 'click') {
-      successParent.removeChild(successContainer);
-      document.removeEventListener('click', onSuccessClose);
-      document.removeEventListener('keydown', onSuccessClose);
-    } else if (evt.type === 'keydown') {
-      if (evt.keyCode === window.ESC_KEYCODE) {
-        successParent.removeChild(successContainer);
-        document.removeEventListener('click', onSuccessClose);
-        document.removeEventListener('keydown', onSuccessClose);
-      }
-    }
+  var onSuccessClose = function (evt) {
+    window.util.isEscOrClick(evt, removeSuccessMessage);
   };
 
   var errorParent = document.querySelector('main');
@@ -195,19 +190,14 @@
       .content
       .querySelector('.error').cloneNode(true);
 
-  var onErrorClose = function (evt) {
+  var removeErrorMessage = function () {
+    errorParent.removeChild(errorContainer);
+    document.removeEventListener('click', onErrorClose);
+    document.removeEventListener('keydown', onErrorClose);
+  };
 
-    if (evt.type === 'click') {
-      errorParent.removeChild(errorContainer);
-      document.removeEventListener('click', onErrorClose);
-      document.removeEventListener('keydown', onErrorClose);
-    } else if (evt.type === 'keydown') {
-      if (evt.keyCode === window.ESC_KEYCODE) {
-        errorParent.removeChild(errorContainer);
-        document.removeEventListener('click', onErrorClose);
-        document.removeEventListener('keydown', onErrorClose);
-      }
-    }
+  var onErrorClose = function (evt) {
+    window.util.isEscOrClick(evt, removeErrorMessage);
   };
 
   var errorHandler = function () {
