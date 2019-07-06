@@ -7,6 +7,7 @@
   var PIN_MAIN_START_X = 570;
   var PIN_MAIN_START_Y = 375;
   var mapFiltersSetupSelect = document.querySelectorAll('.map__filters > select');
+  var mapFiltersForm = document.querySelector('.map__filters');
   var mapFiltersSetupFieldset = document.querySelectorAll('.map__filters > fieldset');
   var adFormSetupFieldset = document.querySelectorAll('.ad-form > fieldset');
 
@@ -51,12 +52,66 @@
     var fragment = document.createDocumentFragment();
     var setupSimilarList = document.querySelector('.map__pins');
     var housingType = document.querySelector('#housing-type');
+    var housingRooms = document.querySelector('#housing-rooms');
+    var housingGuests = document.querySelector('#housing-guests');
+    var housingPrice = document.querySelector('#housing-price');
+    var housingFeaturesAll = document.querySelector('#housing-features');
+    var housingFeaturesWifi = document.querySelector('#filter-wifi');
+
     var typeFilter = function (elem) {
+      if (housingType.value  === 'any') {
+        return elem;
+      }
       return elem.offer.type === housingType.value;
     };
 
+    var numRoomsFilter = function (elem) {
+      if (housingRooms.value  === 'any') {
+        return elem;
+      }
+      return elem.offer.rooms === Number(housingRooms.value);
+    };
+
+    var numGuestsFilter = function (elem) {
+      if (housingGuests.value  === 'any') {
+        return elem;
+      } else if (Number(housingGuests.value) === 0) {
+        return elem.offer.guests === 0;
+      }
+      return elem.offer.guests === Number(housingGuests.value);
+    };
+
+    var numPricesFilter = function (elem) {
+      if (housingPrice.value  === 'any') {
+        return elem;
+      } else if (housingPrice.value === 'high') {
+        return elem.offer.price >= 50000;
+      } else if (housingPrice.value === 'low') {
+        return elem.offer.price <= 10000;
+      } else if (housingPrice.value === 'middle') {
+        if (10000 <= elem.offer.price && elem.offer.price <= 50000) {
+          return elem.offer.price;
+        }
+      }
+     return false;
+    };
+
+    var featuresWifiFilter = function (elem) {
+      var filterFeaturesCheckboxes = document.querySelectorAll('.map__features input[type=checkbox]:checked');
+      var filtered = true;
+      if (filterFeaturesCheckboxes.length) {
+        filterFeaturesCheckboxes.forEach(function (chBox) {
+          if (!elem.offer.features.includes(chBox.value)) {
+            filtered = false;
+          }
+        });
+      }
+      return filtered;
+    };
+
+    window.closeCardPopup();
     cleanPins();
-    housingType.value = 'any';
+    mapFiltersForm.reset();
     var drawingRandomSlicePins = function () {
       var randomAdsSlise = window.util.getRandomInt(window.ads.length - MAX_NUM_PINS_SLISE);
 
@@ -68,17 +123,21 @@
       mapPin.addEventListener('click', window.onMapPinClick);
     };
     drawingRandomSlicePins();
-    housingType.addEventListener('change', function () {
+
+    var onPinFilterChange = function () {
       cleanPins();
-      if (housingType.value === 'any') {
-        drawingRandomSlicePins();
-      } else {
-        window.ads.filter(typeFilter).slice(0, MAX_NUM_PINS).forEach(function (ads) {
-          fragment.appendChild(renderAds(ads));
-          setupSimilarList.appendChild(fragment);
-        });
-      }
-    });
+      window.closeCardPopup();
+      window.ads.filter(typeFilter).filter(numRoomsFilter).filter(numGuestsFilter).filter(numPricesFilter).filter(featuresWifiFilter).slice(0, MAX_NUM_PINS).forEach(function (ads) {
+        fragment.appendChild(renderAds(ads));
+        setupSimilarList.appendChild(fragment);
+      });
+    };
+
+    housingType.addEventListener('change', onPinFilterChange);
+    housingRooms.addEventListener('change', onPinFilterChange);
+    housingGuests.addEventListener('change', onPinFilterChange);
+    housingPrice.addEventListener('change', onPinFilterChange);
+    housingFeaturesAll.addEventListener('change', onPinFilterChange);
 
     timeInSelect.addEventListener('change', onTimeClickSelectChange);
     timeOutSelect.addEventListener('change', onTimeClickSelectChange);
