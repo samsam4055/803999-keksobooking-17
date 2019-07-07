@@ -212,6 +212,10 @@
   };
 
   var resetForm = function () {
+    document.querySelector('.ad-form-header__preview img').src = 'img/muffin-grey.svg';
+    Array.from(document.querySelectorAll('.ad-form__photo')).forEach(function (elem) {
+      elem.parentNode.removeChild(elem);
+    });
     window.adFormSetup.reset();
     mapFiltersForm.reset();
     resetPinCoordinates(PIN_MAIN_START_X, PIN_MAIN_START_Y);
