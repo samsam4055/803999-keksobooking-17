@@ -60,21 +60,21 @@
 
     var typeFilter = function (elem) {
       if (housingType.value === 'any') {
-        return elem;
+        return true;
       }
       return elem.offer.type === housingType.value;
     };
 
     var numRoomsFilter = function (elem) {
       if (housingRooms.value === 'any') {
-        return elem;
+        return true;
       }
       return elem.offer.rooms === Number(housingRooms.value);
     };
 
     var numGuestsFilter = function (elem) {
       if (housingGuests.value === 'any') {
-        return elem;
+        return true;
       } else if (Number(housingGuests.value) === 0) {
         return elem.offer.guests === 0;
       }
@@ -83,20 +83,20 @@
 
     var numPricesFilter = function (elem) {
       if (housingPrice.value === 'any') {
-        return elem;
+        return true;
       } else if (housingPrice.value === 'high') {
         return elem.offer.price >= UPPER_PRICE_LIMIT;
       } else if (housingPrice.value === 'low') {
         return elem.offer.price <= LOWER_PRICE_LIMIT;
       } else if (housingPrice.value === 'middle') {
         if (elem.offer.price >= LOWER_PRICE_LIMIT && elem.offer.price <= UPPER_PRICE_LIMIT) {
-          return elem.offer.price;
+          return true;
         }
       }
       return false;
     };
 
-    var featuresWifiFilter = function (elem) {
+    var featuresFilter = function (elem) {
       var filterFeaturesCheckboxes = document.querySelectorAll('.map__features input[type=checkbox]:checked');
       var filtered = true;
       if (filterFeaturesCheckboxes.length) {
@@ -127,7 +127,7 @@
     var onPinFilterChange = function () {
       cleanPins();
       window.closeCardPopup();
-      window.ads.filter(typeFilter).filter(numRoomsFilter).filter(numGuestsFilter).filter(numPricesFilter).filter(featuresWifiFilter).slice(0, MAX_NUM_PINS).forEach(function (ads) {
+      window.ads.filter(typeFilter).filter(numRoomsFilter).filter(numGuestsFilter).filter(numPricesFilter).filter(featuresFilter).slice(0, MAX_NUM_PINS).forEach(function (ads) {
         fragment.appendChild(renderAds(ads));
         setupSimilarList.appendChild(fragment);
       });
