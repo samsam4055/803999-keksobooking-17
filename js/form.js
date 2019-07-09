@@ -15,7 +15,15 @@
   var adFormSetupFieldset = document.querySelectorAll('.ad-form > fieldset');
   var mapFiltersListenerIsAdd = false;
 
-  window.util.updateElementsDisabledProperty([mapFiltersSetupSelect, mapFiltersSetupFieldset, adFormSetupFieldset], true);
+  var updElementsDisabledProperty = function (selectors, isDisabled) {
+    for (var i = 0; i < selectors.length; i++) {
+      for (var j = 0; j < selectors[i].length; j++) {
+        selectors[i][j].disabled = isDisabled;
+      }
+    }
+  };
+
+  updElementsDisabledProperty([mapFiltersSetupSelect, mapFiltersSetupFieldset, adFormSetupFieldset], true);
 
   window.adFormInputAddress.value = parseInt(window.mapPinMain.style.left, 10) + ', ' + parseInt(window.mapPinMain.style.top, 10);
   var cleanPins = function () {
@@ -27,7 +35,7 @@
 
     window.adFormSetup.classList.remove('ad-form--disabled');
 
-    window.util.updateElementsDisabledProperty([mapFiltersSetupSelect, mapFiltersSetupFieldset, adFormSetupFieldset], false);
+    updElementsDisabledProperty([mapFiltersSetupSelect, mapFiltersSetupFieldset, adFormSetupFieldset], false);
 
     var similarAdsTemplate = document
       .querySelector('#pin')
@@ -217,7 +225,7 @@
     mapFiltersForm.reset();
     resetPinCoordinates(PIN_MAIN_START_X, PIN_MAIN_START_Y);
     cleanPins();
-    window.util.updateElementsDisabledProperty([mapFiltersSetupSelect, mapFiltersSetupFieldset, adFormSetupFieldset], true);
+    updElementsDisabledProperty([mapFiltersSetupSelect, mapFiltersSetupFieldset, adFormSetupFieldset], true);
     window.mapSetup.classList.add('map--faded');
     window.adFormSetup.classList.add('ad-form--disabled');
     window.closeCardPopup();
