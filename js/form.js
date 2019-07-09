@@ -127,9 +127,9 @@
       });
     };
 
-    if (!mapFiltersListenerIsAdd){
-        mapFiltersForm.addEventListener('change', window.util.debounce(onPinFilterChange));
-        mapFiltersListenerIsAdd = true;
+    if (!mapFiltersListenerIsAdd) {
+      mapFiltersForm.addEventListener('change', window.util.debounce(onPinFilterChange));
+      mapFiltersListenerIsAdd = true;
     }
 
     timeInSelect.addEventListener('change', onTimeClickSelectChange);
