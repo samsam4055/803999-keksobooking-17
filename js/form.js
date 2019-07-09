@@ -111,6 +111,10 @@
       return filtered;
     };
 
+    var supeFilter = function (elem) {
+      return typeFilter(elem) && numRoomsFilter(elem) && numGuestsFilter(elem) && numPricesFilter(elem) && featuresFilter(elem);
+    };
+
     window.closeCardPopup();
     cleanPins();
     mapFiltersForm.reset();
@@ -129,7 +133,7 @@
     var onPinFilterChange = function () {
       cleanPins();
       window.closeCardPopup();
-      window.ads.filter(typeFilter).filter(numRoomsFilter).filter(numGuestsFilter).filter(numPricesFilter).filter(featuresFilter).slice(0, MAX_NUM_PINS).forEach(function (ads) {
+      window.ads.filter(supeFilter).slice(0, MAX_NUM_PINS).forEach(function (ads) {
         fragment.appendChild(renderAds(ads));
         setupSimilarList.appendChild(fragment);
       });
