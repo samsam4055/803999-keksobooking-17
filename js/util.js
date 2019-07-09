@@ -6,13 +6,13 @@
 
     return {
 
-      updateElementsDisabledProperty: function (element, disable) {
-        if (typeof element === 'object') {
-          for (var i = 0; i < element.length; i++) {
-            element[i].disabled = !!disable;
+      updateElementsDisabledProperty: function (elements, disable) {
+        if (typeof elements === 'object') {
+          for (var i = 0; i < elements.length; i++) {
+            elements[i].disabled = !!disable;
           }
         } else {
-          element.disabled = !!disable;
+          elements.disabled = !!disable;
         }
       },
       getRandomInt: function (max) {

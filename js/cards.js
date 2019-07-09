@@ -35,20 +35,16 @@
   var definitionTypeHousing = function (offerType) {
     switch (offerType) {
       case 'flat':
-        offerType = 'Квартира';
-        return offerType;
+        return 'Квартира';
 
       case 'bungalo':
-        offerType = 'Бунгало';
-        return offerType;
+        return 'Бунгало';
 
       case 'house':
-        offerType = 'Дом';
-        return offerType;
+        return 'Дом';
 
       case 'palace':
-        offerType = 'Дворец';
-        return offerType;
+        return 'Дворец';
     }
     return offerType;
   };

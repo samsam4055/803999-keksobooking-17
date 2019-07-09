@@ -1,27 +1,21 @@
 'use strict';
 
 (function () {
-  window.mapPinMain.querySelector('img').classList.add('map__pin--main--img');
+
   var MAX_NUM_PINS = 5;
   var MAX_NUM_PINS_SLISE = MAX_NUM_PINS - 1;
   var PIN_MAIN_START_X = 570;
   var PIN_MAIN_START_Y = 375;
   var LOWER_PRICE_LIMIT = 10000;
   var UPPER_PRICE_LIMIT = 50000;
+  window.mapPinMain.querySelector('img').classList.add('map__pin--main--img');
   var mapFiltersSetupSelect = document.querySelectorAll('.map__filters > select');
   var mapFiltersForm = document.querySelector('.map__filters');
   var mapFiltersSetupFieldset = document.querySelectorAll('.map__filters > fieldset');
   var adFormSetupFieldset = document.querySelectorAll('.ad-form > fieldset');
+  var mapFiltersListenerIsAdd = false;
 
-  var updateElementsDisabledProperty = function (selectors, isDisabled) {
-    for (var i = 0; i < selectors.length; i++) {
-      for (var j = 0; j < selectors[i].length; j++) {
-        selectors[i][j].disabled = isDisabled;
-      }
-    }
-  };
-
-  updateElementsDisabledProperty([mapFiltersSetupSelect, mapFiltersSetupFieldset, adFormSetupFieldset], true);
+  window.util.updateElementsDisabledProperty([mapFiltersSetupSelect, mapFiltersSetupFieldset, adFormSetupFieldset], true);
 
   window.adFormInputAddress.value = parseInt(window.mapPinMain.style.left, 10) + ', ' + parseInt(window.mapPinMain.style.top, 10);
   var cleanPins = function () {
@@ -33,7 +27,7 @@
 
     window.adFormSetup.classList.remove('ad-form--disabled');
 
-    updateElementsDisabledProperty([mapFiltersSetupSelect, mapFiltersSetupFieldset, adFormSetupFieldset], false);
+    window.util.updateElementsDisabledProperty([mapFiltersSetupSelect, mapFiltersSetupFieldset, adFormSetupFieldset], false);
 
     var similarAdsTemplate = document
       .querySelector('#pin')
@@ -112,7 +106,7 @@
     window.closeCardPopup();
     cleanPins();
     mapFiltersForm.reset();
-    var drawingRandomSlicePins = function () {
+    var drawRandomSlicePins = function () {
       var randomAdsSlise = window.util.getRandomInt(window.ads.length - MAX_NUM_PINS_SLISE);
 
       window.ads.slice(randomAdsSlise, randomAdsSlise + MAX_NUM_PINS).forEach(function (ads) {
@@ -122,7 +116,7 @@
       var mapPin = document.querySelector('.map__pins');
       mapPin.addEventListener('click', window.onMapPinClick);
     };
-    drawingRandomSlicePins();
+    drawRandomSlicePins();
 
     var onPinFilterChange = function () {
       cleanPins();
@@ -133,7 +127,10 @@
       });
     };
 
-    mapFiltersForm.addEventListener('change', window.util.debounce(onPinFilterChange));
+    if (!mapFiltersListenerIsAdd){
+        mapFiltersForm.addEventListener('change', window.util.debounce(onPinFilterChange));
+        mapFiltersListenerIsAdd = true;
+    }
 
     timeInSelect.addEventListener('change', onTimeClickSelectChange);
     timeOutSelect.addEventListener('change', onTimeClickSelectChange);
@@ -220,7 +217,7 @@
     mapFiltersForm.reset();
     resetPinCoordinates(PIN_MAIN_START_X, PIN_MAIN_START_Y);
     cleanPins();
-    updateElementsDisabledProperty([mapFiltersSetupSelect, mapFiltersSetupFieldset, adFormSetupFieldset], true);
+    window.util.updateElementsDisabledProperty([mapFiltersSetupSelect, mapFiltersSetupFieldset, adFormSetupFieldset], true);
     window.mapSetup.classList.add('map--faded');
     window.adFormSetup.classList.add('ad-form--disabled');
     window.closeCardPopup();
