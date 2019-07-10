@@ -1,6 +1,6 @@
 'use strict';
 (function () {
-  var ESC_KEYCODE = 27;
+
   var DEBOUNCE_INTERVAL = 500;
   window.util = (function () {
 
@@ -19,17 +19,15 @@
         return Math.floor(Math.random() * max);
       },
       isEsc: function (evt, action) {
-        if (evt.keyCode === ESC_KEYCODE) {
+        if (evt.code === 'Escape') {
           action();
         }
       },
       isEscOrClick: function (evt, action) {
         if (evt.type === 'click') {
           action();
-        } else if (evt.type === 'keydown') {
-          if (evt.keyCode === ESC_KEYCODE) {
-            action();
-          }
+        } else if (evt.code === 'Escape') {
+          action();
         }
       }
     };

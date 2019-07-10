@@ -95,7 +95,7 @@
 
       var fragmentCards = document.createDocumentFragment();
       fragmentCards.appendChild(renderCards());
-      var setupSimilarListCards = document.querySelector('body');
+      var setupSimilarListCards = document.querySelector('.map');
 
       setupSimilarListCards.appendChild(fragmentCards);
       renderImages(window.cardPhotos);
