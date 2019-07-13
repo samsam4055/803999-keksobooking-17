@@ -122,7 +122,7 @@
     };
 
     var commonFilter = function (elem) {
-      return typeFilter(elem) && numRoomsFilter(elem) && numGuestsFilter(elem) && numPricesFilter(elem) && featuresFilter(elem);
+      return radiusFilter(elem) && typeFilter(elem) && numRoomsFilter(elem) && numGuestsFilter(elem) && numPricesFilter(elem) && featuresFilter(elem);
     };
 
     window.closeCardPopup();
