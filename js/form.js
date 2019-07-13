@@ -3,7 +3,6 @@
 (function () {
   var RADIUS_DISPLAY_PINS = 250;
   var MAX_NUM_PINS = 10;
-  var MAX_NUM_PINS_SLISE = MAX_NUM_PINS - 1;
   var PIN_MAIN_START_X = 570;
   var PIN_MAIN_START_Y = 375;
   var LOWER_PRICE_LIMIT = 10000;
@@ -110,11 +109,11 @@
       }
       return filtered;
     };
-    
+
     var radiusFilter = function (elem) {
-      if (window.mapPinMain.offsetLeft + RADIUS_DISPLAY_PINS >= elem.location.x 
+      if (window.mapPinMain.offsetLeft + RADIUS_DISPLAY_PINS >= elem.location.x
             && elem.location.x >= window.mapPinMain.offsetLeft - RADIUS_DISPLAY_PINS
-            && window.mapPinMain.offsetTop + RADIUS_DISPLAY_PINS >= elem.location.y 
+            && window.mapPinMain.offsetTop + RADIUS_DISPLAY_PINS >= elem.location.y
             && elem.location.y >= window.mapPinMain.offsetTop - RADIUS_DISPLAY_PINS) {
         return true;
       }
