@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  var RADIUS_DISPLAY_PINS = 300;
+  var RADIUS_DISPLAY_PINS = 250;
   var MAX_NUM_PINS = 10;
   var MAX_NUM_PINS_SLISE = MAX_NUM_PINS - 1;
   var PIN_MAIN_START_X = 570;
