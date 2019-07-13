@@ -112,10 +112,10 @@
     };
     
     var radiusFilter = function (elem) {
-      if (Number(window.mapPinMain.offsetLeft) + RADIUS_DISPLAY_PINS >= Number(elem.location.x) 
-            && elem.location.x >= Number(window.mapPinMain.offsetLeft) - RADIUS_DISPLAY_PINS
-            && Number(window.mapPinMain.offsetTop) + RADIUS_DISPLAY_PINS >= Number(elem.location.y) 
-            && elem.location.y >= Number(window.mapPinMain.offsetTop) - RADIUS_DISPLAY_PINS) {
+      if (window.mapPinMain.offsetLeft + RADIUS_DISPLAY_PINS >= elem.location.x 
+            && elem.location.x >= window.mapPinMain.offsetLeft - RADIUS_DISPLAY_PINS
+            && window.mapPinMain.offsetTop + RADIUS_DISPLAY_PINS >= elem.location.y 
+            && elem.location.y >= window.mapPinMain.offsetTop - RADIUS_DISPLAY_PINS) {
         return true;
       }
       return false;

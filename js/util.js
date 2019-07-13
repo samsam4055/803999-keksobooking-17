@@ -15,9 +15,6 @@
           elements.disabled = !!disable;
         }
       },
-      getRandomInt: function (max) {
-        return Math.floor(Math.random() * max);
-      },
       isEsc: function (evt, action) {
         if (evt.code === 'Escape') {
           action();
