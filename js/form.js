@@ -1,8 +1,8 @@
 'use strict';
 
 (function () {
-
-  var MAX_NUM_PINS = 5;
+  var RADIUS_DISPLAY_PINS = 300;
+  var MAX_NUM_PINS = 7;
   var MAX_NUM_PINS_SLISE = MAX_NUM_PINS - 1;
   var PIN_MAIN_START_X = 570;
   var PIN_MAIN_START_Y = 375;
@@ -110,6 +110,16 @@
       }
       return filtered;
     };
+    
+    var radiusFilter = function (elem) {
+      if (Number(window.mapPinMain.offsetLeft) + RADIUS_DISPLAY_PINS >= Number(elem.location.x) 
+            && elem.location.x >= Number(window.mapPinMain.offsetLeft) - RADIUS_DISPLAY_PINS
+            && Number(window.mapPinMain.offsetTop) + RADIUS_DISPLAY_PINS >= Number(elem.location.y) 
+            && elem.location.y >= Number(window.mapPinMain.offsetTop) - RADIUS_DISPLAY_PINS) {
+        return true;
+      }
+      return false;
+    };
 
     var commonFilter = function (elem) {
       return typeFilter(elem) && numRoomsFilter(elem) && numGuestsFilter(elem) && numPricesFilter(elem) && featuresFilter(elem);
@@ -118,17 +128,16 @@
     window.closeCardPopup();
     cleanPins();
     mapFiltersForm.reset();
-    var drawRandomSlicePins = function () {
-      var randomAdsSlise = window.util.getRandomInt(window.ads.length - MAX_NUM_PINS_SLISE);
+    var drawPinsInRadius = function () {
 
-      window.ads.slice(randomAdsSlise, randomAdsSlise + MAX_NUM_PINS).forEach(function (ads) {
+      window.ads.filter(radiusFilter).slice(0, MAX_NUM_PINS).forEach(function (ads) {
         fragment.appendChild(renderAds(ads));
         setupSimilarList.appendChild(fragment);
       });
       var mapPin = document.querySelector('.map__pins');
       mapPin.addEventListener('click', window.onMapPinClick);
     };
-    drawRandomSlicePins();
+    drawPinsInRadius();
 
     var onPinFilterChange = function () {
       cleanPins();
