@@ -267,6 +267,8 @@
       .content
       .querySelector('.error').cloneNode(true);
 
+  errorContainer.querySelector('.error__message').textContent = 'Ошибка отправки формы';
+
   var removeErrorMessage = function () {
     errorParent.removeChild(errorContainer);
     document.removeEventListener('click', onErrorClose);
